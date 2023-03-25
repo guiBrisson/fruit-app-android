@@ -30,7 +30,6 @@ fun NutrientsTheme(darkTheme: Boolean = isSystemInDarkTheme(),content: @Composab
 
     MaterialTheme(
         colors = colors,
-        content = content,
-        typography = Typography
+        content = content
     )
 }
