@@ -12,6 +12,7 @@ object Versions {
     const val androidxJunit = "1.1.5"
     const val androidxEspresso = "3.5.1"
     const val room = "2.5.0"
+    const val accompanist = "0.30.0"
 }
 
 object Dependencies {
@@ -43,5 +44,6 @@ object Dependencies {
     const val composeUiTest = "androidx.compose.ui:ui-test-manifest:${Versions.composeUi}"
     const val composeJunit = "androidx.compose.ui:ui-test-junit4:${Versions.composeUi}"
 
-
+    // Accompanist
+    const val accompanistSystemUI = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
 }
