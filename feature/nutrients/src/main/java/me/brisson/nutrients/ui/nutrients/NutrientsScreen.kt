@@ -1,10 +1,13 @@
 package me.brisson.nutrients.ui.nutrients
 
+import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,12 +26,18 @@ fun NutrientsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background),
+        contentAlignment = Alignment.Center
+    ) {
         if (uiState.loading) {
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = 20.dp),
+                color = MaterialTheme.colors.primary
             )
         }
 
@@ -37,9 +46,17 @@ fun NutrientsScreen(
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun PreviewNutrientsScreen() {
+fun PreviewNutrientsScreenDark() {
+    NutrientsTheme {
+        NutrientsScreen(onBack = { })
+    }
+}
+
+@Preview(showBackground = true, name = "Light", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewNutrientsScreenLight() {
     NutrientsTheme {
         NutrientsScreen(onBack = { })
     }

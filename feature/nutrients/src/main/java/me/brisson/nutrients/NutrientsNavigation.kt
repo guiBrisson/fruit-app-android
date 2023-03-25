@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import me.brisson.nutrients.ui.nutrients.NutrientsScreen
+import me.brisson.nutrients.ui.theme.NutrientsTheme
 
 object NutrientsNavigationRoutes {
     const val NUTRIENTS_ROUTE = "nutrients"
@@ -17,7 +18,9 @@ fun NavGraphBuilder.nutrientsNavigation(navController: NavController) {
         route = NutrientsNavigationRoutes.NUTRIENTS_ROUTE
     ) {
         composable("detail") {
-            NutrientsScreen(onBack = { })
+            NutrientsTheme {
+                NutrientsScreen(onBack = { })
+            }
         }
     }
 }
