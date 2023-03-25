@@ -55,6 +55,11 @@ dependencies {
     //Navigation
     implementation Dependencies.navigationCompose
 
+    //Room
+    implementation Dependencies.roomKtx
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.androidxJunit
     androidTestImplementation Dependencies.androidxEspresso
