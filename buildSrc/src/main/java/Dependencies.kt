@@ -11,6 +11,7 @@ object Versions {
     const val junit = "4.13.2"
     const val androidxJunit = "1.1.5"
     const val androidxEspresso = "3.5.1"
+    const val room = "2.5.0"
 }
 
 object Dependencies {
@@ -26,6 +27,10 @@ object Dependencies {
     const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
 
+    // Room
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     // Navigation
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
