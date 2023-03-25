@@ -1,12 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'me.brisson.nutrients'
+    namespace 'me.brisson.ui'
     compileSdk 33
 
     defaultConfig {
@@ -39,7 +37,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core:ui')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
@@ -47,24 +44,6 @@ dependencies {
     implementation Dependencies.androidxComposeUi
     implementation Dependencies.androidxComposeUiPreviewTool
     implementation Dependencies.androidxMaterial
+    implementation Dependencies.accompanistSystemUI
 
-    //Hilt
-    implementation Dependencies.daggerHilt
-    kapt Dependencies.hiltCompiler
-    implementation Dependencies.hiltNavigation
-
-    //Navigation
-    implementation Dependencies.navigationCompose
-
-    //Room
-    implementation Dependencies.roomKtx
-    implementation Dependencies.roomRuntime
-    kapt Dependencies.roomCompiler
-
-    testImplementation Dependencies.junit
-    androidTestImplementation Dependencies.androidxJunit
-    androidTestImplementation Dependencies.androidxEspresso
-    androidTestImplementation Dependencies.composeJunit
-    debugImplementation Dependencies.composeUiTolling
-    debugImplementation Dependencies.composeUiTest
 }
