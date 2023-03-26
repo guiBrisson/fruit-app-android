@@ -40,6 +40,8 @@ android {
 
 dependencies {
     implementation project(path: ':core:ui')
+    implementation project(path: ':core:data') // todo: remove this when core:domain is ready
+    implementation project(path: ':feature:nutrients')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
@@ -53,7 +55,6 @@ dependencies {
 
     //Hilt
     implementation Dependencies.daggerHilt
-    implementation project(path: ':feature:nutrients')
     kapt Dependencies.hiltCompiler
     implementation Dependencies.hiltNavigation
 

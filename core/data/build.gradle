@@ -40,4 +40,9 @@ dependencies {
     kapt Dependencies.hiltCompiler
     implementation Dependencies.hiltNavigation
 
+    //Room
+    implementation Dependencies.roomKtx
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+
 }
