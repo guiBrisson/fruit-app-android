@@ -50,6 +50,7 @@ dependencies {
 
     //Hilt
     implementation Dependencies.daggerHilt
+    implementation project(path: ':feature:nutrients')
     kapt Dependencies.hiltCompiler
     implementation Dependencies.hiltNavigation
 

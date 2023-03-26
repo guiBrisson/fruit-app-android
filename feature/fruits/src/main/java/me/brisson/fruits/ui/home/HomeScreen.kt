@@ -2,6 +2,7 @@ package me.brisson.fruits.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -29,18 +30,20 @@ import me.brisson.ui.theme.gothicA1
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onNutrients: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    HomeScreen(modifier = modifier, fruits = uiState.fruits)
+    HomeScreen(modifier = modifier, fruits = uiState.fruits, onNutrients = onNutrients)
 
 }
 
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    fruits: List<Fruit>
+    fruits: List<Fruit>,
+    onNutrients: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -87,21 +90,34 @@ internal fun HomeScreen(
         }
 
         Row(
-            modifier = Modifier.padding(top = 16.dp).height(IntrinsicSize.Max),
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .height(IntrinsicSize.Max),
             horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             HomeItem(
-                modifier = Modifier.weight(1f).fillMaxHeight(),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
                 title = "Safra das frutas",
                 subTitle = "Aposte nas frutas da estação para garantir tudo o que elas podem oferecer o seu organismo"
             )
             HomeItem(
-                modifier = Modifier.weight(1f).fillMaxHeight(),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .clickable(onClick = onNutrients),
                 title = "Um mar de nutrientes",
                 backgroundColor = backgroundOrange,
                 subTitle = "Conheça os componentes das frutas mas consumidas no Brasil"
             )
         }
+
+        Text(
+            modifier = Modifier.padding(top = 24.dp),
+            text = "Frutas favoritas",
+            style = MaterialTheme.typography.h3
+        )
     }
 }
 
@@ -109,6 +125,6 @@ internal fun HomeScreen(
 @Composable
 fun PreviewHomeScreen() {
     FruitAppTheme {
-        HomeScreen(fruits = emptyList())
+        HomeScreen(fruits = emptyList(), onNutrients = { })
     }
 }

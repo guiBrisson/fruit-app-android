@@ -4,5 +4,6 @@ data class Fruit(
     val id: Long = -1,
     val name: String,
     val imageUrl: String? = null,
-    val summary: String
+    val summary: String,
+    val isFavorite: Boolean = false
 )
