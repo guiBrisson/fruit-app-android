@@ -16,3 +16,4 @@ rootProject.name = "FruitApp"
 include ':app'
 include ':feature:nutrients'
 include ':core:data'
+include ':core:ui'

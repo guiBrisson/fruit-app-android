@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import me.brisson.fruitapp.ui.theme.FruitAppTheme
+import me.brisson.ui.theme.FruitAppTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
