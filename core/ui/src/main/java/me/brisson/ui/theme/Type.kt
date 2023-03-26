@@ -51,11 +51,17 @@ val Typography = Typography(
     subtitle1 = TextStyle(
         fontFamily = gothicA1,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        lineHeight = 20.sp
     ),
     subtitle2 = TextStyle(
         fontFamily = gothicA1,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     ),
+    button = TextStyle(
+        fontFamily = gothicA1,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp
+    )
 )

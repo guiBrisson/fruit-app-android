@@ -56,8 +56,8 @@ dependencies {
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
     implementation Dependencies.androidxActivityCompose
-    implementation Dependencies.androidxComposeUi
-    implementation Dependencies.androidxComposeUiPreviewTool
+    implementation Dependencies.composeUi
+    implementation Dependencies.composeUiPreviewTool
     implementation Dependencies.androidxMaterial
 
     //Hilt

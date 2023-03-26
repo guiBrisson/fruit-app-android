@@ -31,11 +31,17 @@ import me.brisson.ui.theme.gothicA1
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    onNutrients: () -> Unit
+    onNutrients: () -> Unit,
+    onCrops: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    HomeScreen(modifier = modifier, fruits = uiState.fruits, onNutrients = onNutrients)
+    HomeScreen(
+        modifier = modifier,
+        fruits = uiState.fruits,
+        onNutrients = onNutrients,
+        onCrops = onCrops
+    )
 
 }
 
@@ -43,7 +49,8 @@ fun HomeScreen(
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
     fruits: List<Fruit>,
-    onNutrients: () -> Unit
+    onNutrients: () -> Unit,
+    onCrops: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -98,7 +105,8 @@ internal fun HomeScreen(
             HomeItem(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .clickable(onClick = onCrops),
                 title = "Safra das frutas",
                 subTitle = "Aposte nas frutas da estação para garantir tudo o que elas podem oferecer o seu organismo"
             )
@@ -125,6 +133,6 @@ internal fun HomeScreen(
 @Composable
 fun PreviewHomeScreen() {
     FruitAppTheme {
-        HomeScreen(fruits = emptyList(), onNutrients = { })
+        HomeScreen(fruits = emptyList(), onNutrients = { }, onCrops = { })
     }
 }
