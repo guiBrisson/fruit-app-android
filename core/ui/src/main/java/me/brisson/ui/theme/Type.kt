@@ -43,6 +43,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp
     ),
+    h5 = TextStyle(
+        fontFamily = gothicA1,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp
+    ),
     subtitle1 = TextStyle(
         fontFamily = gothicA1,
         fontWeight = FontWeight.Medium,
