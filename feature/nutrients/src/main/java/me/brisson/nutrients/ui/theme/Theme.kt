@@ -21,10 +21,10 @@ private val LightColorsPalette = lightColors(
 )
 
 @Composable
-fun NutrientsTheme(darkTheme: Boolean = isSystemInDarkTheme(),content: @Composable () -> Unit) {
+fun NutrientsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorsPalette
-    } else{
+    } else {
         LightColorsPalette
     }
 
