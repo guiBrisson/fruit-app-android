@@ -1,6 +1,6 @@
 package me.brisson.fruits.ui.home
 
-import me.brisson.fruits.model.Fruit
+import me.brisson.data.model.Fruit
 
 data class HomeUiState(
     val fruitsLoading: Boolean = true,
