@@ -5,21 +5,21 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import me.brisson.nutrients.NutrientsNavigationRoutes
-import me.brisson.nutrients.nutrientsNavigation
+import me.brisson.fruits.ui.FruitsNavigationRoutes
+import me.brisson.fruits.ui.fruitsNavigation
 
 @Composable
 fun MainNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = NutrientsNavigationRoutes.NUTRIENTS_ROUTE
+    startDestination: String = FruitsNavigationRoutes.FRUITS_ROUTE
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-        nutrientsNavigation(navController)
+        fruitsNavigation(navController)
     }
 
 }

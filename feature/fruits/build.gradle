@@ -1,25 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'me.brisson.fruitapp'
+    namespace 'me.brisson.fruits'
     compileSdk 33
 
     defaultConfig {
-        applicationId "me.brisson.fruitapp"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -41,17 +36,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.2.0'
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
-    implementation project(path: ':core:data')
     implementation project(path: ':core:ui')
-    implementation project(path: ':feature:fruits')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
@@ -68,10 +56,16 @@ dependencies {
     //Navigation
     implementation Dependencies.navigationCompose
 
+    //Room
+    implementation Dependencies.roomKtx
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.androidxJunit
     androidTestImplementation Dependencies.androidxEspresso
     androidTestImplementation Dependencies.composeJunit
     debugImplementation Dependencies.composeUiTolling
     debugImplementation Dependencies.composeUiTest
+
 }
