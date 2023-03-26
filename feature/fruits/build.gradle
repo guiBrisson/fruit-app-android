@@ -44,12 +44,16 @@ dependencies {
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
     implementation Dependencies.androidxActivityCompose
-    implementation Dependencies.androidxComposeUi
-    implementation Dependencies.androidxComposeUiPreviewTool
     implementation Dependencies.androidxMaterial
+
+    //Compose
+    implementation Dependencies.composeUi
+    implementation Dependencies.composeUiPreviewTool
+    implementation Dependencies.composeIconsExtended
 
     //Hilt
     implementation Dependencies.daggerHilt
+    implementation project(path: ':feature:nutrients')
     kapt Dependencies.hiltCompiler
     implementation Dependencies.hiltNavigation
 

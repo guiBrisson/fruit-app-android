@@ -1,6 +1,7 @@
 package me.brisson.fruits.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -38,6 +39,7 @@ fun HomeItem(
         Column(
             modifier = modifier
                 .clip(shape)
+                .border(width = 1.dp, color = MaterialTheme.colors.onBackground, shape = shape)
                 .background(backgroundColor)
                 .padding(12.dp)
         ) {

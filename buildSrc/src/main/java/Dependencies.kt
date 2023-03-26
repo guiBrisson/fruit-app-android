@@ -19,9 +19,12 @@ object Dependencies {
     const val androidxCoreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val androidxLifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntime}"
     const val androidxActivityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
-    const val androidxComposeUi = "androidx.compose.ui:ui:${Versions.composeUi}"
-    const val androidxComposeUiPreviewTool = "androidx.compose.ui:ui-tooling-preview:${Versions.composeUi}"
     const val androidxMaterial = "androidx.compose.material:material:${Versions.material}"
+
+    // Compose
+    const val composeUi = "androidx.compose.ui:ui:${Versions.composeUi}"
+    const val composeUiPreviewTool = "androidx.compose.ui:ui-tooling-preview:${Versions.composeUi}"
+    const val composeIconsExtended = "androidx.compose.material:material-icons-extended:${Versions.composeUi}"
 
     // Hilt
     const val daggerHilt = "com.google.dagger:hilt-android:${Versions.hilt}"
