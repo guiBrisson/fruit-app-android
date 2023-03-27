@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import me.brisson.data.model.Month
+import me.brisson.domain.model.Month
 import me.brisson.fruits.preview_provider.MonthsPreviewProvider
 import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.backgroundGreen

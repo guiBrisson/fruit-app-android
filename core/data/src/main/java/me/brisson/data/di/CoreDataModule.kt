@@ -13,7 +13,8 @@ import me.brisson.data.database.dao.FruitDao
 import me.brisson.data.database.dao.FruitMonthDao
 import me.brisson.data.database.dao.MonthDao
 import me.brisson.data.database.repository.FruitMonthRepositoryImpl
-import me.brisson.data.repository.FruitMonthRepository
+import me.brisson.domain.repository.FruitMonthRepository
+import me.brisson.domain.repository.SharedPref
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +23,7 @@ class CoreDataModule {
 
     @Provides
     @Singleton
-    fun providesSharePreferences(@ApplicationContext context: Context): SharedPreferences {
+    fun providesSharePreferences(@ApplicationContext context: Context): SharedPref {
         return SharedPreferences(context)
     }
 

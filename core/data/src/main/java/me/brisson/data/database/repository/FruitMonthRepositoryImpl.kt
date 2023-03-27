@@ -7,9 +7,9 @@ import me.brisson.data.database.dao.MonthDao
 import me.brisson.data.database.entity.toFruitEntity
 import me.brisson.data.database.entity.toMonthEntity
 import me.brisson.data.database.relation.FruitMonthCrossRef
-import me.brisson.data.model.Fruit
-import me.brisson.data.model.Month
-import me.brisson.data.repository.FruitMonthRepository
+import me.brisson.domain.model.Fruit
+import me.brisson.domain.model.Month
+import me.brisson.domain.repository.FruitMonthRepository
 import javax.inject.Inject
 
 class FruitMonthRepositoryImpl @Inject constructor(

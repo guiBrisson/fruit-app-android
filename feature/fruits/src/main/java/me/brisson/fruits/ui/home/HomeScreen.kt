@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import me.brisson.data.model.Fruit
+import me.brisson.domain.model.Fruit
 import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.backgroundOrange
 import me.brisson.ui.theme.backgroundPurple

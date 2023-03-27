@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import me.brisson.data.model.Fruit
-import me.brisson.data.repository.FruitMonthRepository
+import me.brisson.domain.model.Fruit
+import me.brisson.domain.repository.FruitMonthRepository
 import javax.inject.Inject
 
 @HiltViewModel

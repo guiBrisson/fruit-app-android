@@ -1,4 +1,4 @@
-package me.brisson.data.model
+package me.brisson.domain.model
 
 data class Month(
     val name: String,
