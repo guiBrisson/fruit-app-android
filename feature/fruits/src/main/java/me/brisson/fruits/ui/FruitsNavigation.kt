@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import me.brisson.fruits.ui.crop.CropScreen
+import me.brisson.fruits.ui.crop.CropSeasonScreen
 import me.brisson.fruits.ui.home.HomeScreen
 import me.brisson.fruits.ui.nutrient.NutrientScreen
 import me.brisson.nutrients.NutrientsNavigationRoutes
@@ -45,7 +45,7 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
         }
 
         composable(route = FruitsNavigationRoutes.CROP_ROUTE) {
-            CropScreen(
+            CropSeasonScreen(
                 onBack = { navController.navigateUp() }
             )
         }
