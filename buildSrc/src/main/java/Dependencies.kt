@@ -1,4 +1,3 @@
-
 object Versions {
     const val coreKtx = "1.9.0"
     const val lifecycleRuntime = "2.3.1"
