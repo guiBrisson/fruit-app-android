@@ -31,20 +31,22 @@ fun NutrientsScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     var selectedNutrient by remember {
-        mutableStateOf(uiState.nutrients.first())
+        mutableStateOf<Nutrient?>(null)
     }
 
-    NutrientsScreen(
-        uiState = uiState,
-        onBack = onBack,
-        modifier = modifier,
-        selectedNutrient = selectedNutrient,
-        onHome = onHome,
-        onNutrientClick = { nutrient ->
-            viewModel.findNextNutrient(nutrient)
-            selectedNutrient = nutrient
-        }
-    )
+    selectedNutrient?.let { nutrient ->
+        NutrientsScreen(
+            uiState = uiState,
+            onBack = onBack,
+            modifier = modifier,
+            selectedNutrient = nutrient,
+            onHome = onHome,
+            onNutrientClick = { n ->
+                viewModel.findNextNutrient(n)
+                selectedNutrient = n
+            }
+        )
+    }
 }
 
 @Composable
