@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -61,17 +62,10 @@ fun FruitVerticalItem(
                             val stroke = borderStroke.width.toPx() * 2
 
                             drawLine(
-                                brush = borderStroke.brush ,
+                                brush = borderStroke.brush,
                                 start = Offset(x, 0f),
                                 end = Offset(x, maxY),
                                 strokeWidth = stroke
-                            )
-
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = 1f,
-                                start = Offset(x = 1f, y = 1f),
-                                end = Offset(x = 1f, y = 0f)
                             )
                         },
                     model = ImageRequest.Builder(LocalContext.current)
@@ -123,6 +117,102 @@ fun FruitVerticalItem(
                     contentDescription = null,
                     tint = color
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun FruitCardItem(
+    modifier: Modifier = Modifier,
+    fruit: Fruit,
+    backgroundColor: Color = Color.White,
+    borderStroke: BorderStroke = BorderStroke(width = 1.dp, color = Color.Black),
+    offset: Dp = 2.dp,
+    onFavorite: (Boolean) -> Unit
+) {
+    Box(modifier = Modifier) {
+        Box(
+            modifier = modifier
+                .offset(x = offset, y = offset)
+                .matchParentSize()
+                .background(backgroundColor)
+                .border(borderStroke)
+        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .background(backgroundColor)
+                .border(borderStroke),
+        ) {
+            fruit.imageUrl?.let { url ->
+                AsyncImage(
+                    modifier = Modifier
+                        .height(90.dp)
+                        .fillMaxWidth()
+                        .drawBehind {
+                            val maxX = size.width
+                            val y = size.height
+                            val stroke = borderStroke.width.toPx() * 2
+
+                            drawLine(
+                                brush = borderStroke.brush,
+                                start = Offset(0f, y),
+                                end = Offset(maxX, y),
+                                strokeWidth = stroke
+                            )
+                        },
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(url)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(
+                        start = 12.dp,
+                        end = 12.dp,
+                        top = 12.dp,
+                        bottom = 16.dp
+                    )
+                ) {
+                    Text(
+                        text = fruit.name,
+                        style = MaterialTheme.typography.h4
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 4.dp),
+                        text = fruit.summary,
+                        style = MaterialTheme.typography.subtitle2,
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                val imageVector = if (fruit.isFavorite) {
+                    Icons.Rounded.Favorite
+                } else {
+                    Icons.Rounded.FavoriteBorder
+                }
+
+                val color = if (fruit.isFavorite) Color.Red else Color.Black
+
+                IconButton(
+                    modifier = Modifier
+                        .padding(0.dp)
+                        .align(Alignment.TopEnd),
+                    onClick = { onFavorite(!fruit.isFavorite) }
+                ) {
+                    Icon(
+                        imageVector = imageVector,
+                        contentDescription = null,
+                        tint = color
+                    )
+                }
             }
         }
     }

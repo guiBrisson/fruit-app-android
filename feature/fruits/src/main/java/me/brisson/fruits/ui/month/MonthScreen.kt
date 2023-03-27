@@ -1,11 +1,12 @@
 package me.brisson.fruits.ui.month
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -16,9 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.domain.model.Month
+import me.brisson.fruits.preview_provider.MonthsPreviewProvider
+import me.brisson.ui.components.FruitCardItem
+import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.backgroundGreen
 
 @Composable
@@ -30,52 +36,78 @@ fun MonthScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backgroundGreen)
-    ) {
-
-        uiState.month?.let { month ->
-            MonthScreen(
-                modifier = Modifier,
-                month = month,
-                onFruit = onFruit,
-                onBack = onBack
-            )
-        }
+    uiState.month?.let { month ->
+        MonthScreen(
+            modifier = modifier,
+            month = month,
+            onFruit = onFruit,
+            onBack = onBack
+        )
     }
+
 }
 
 @Composable
 internal fun MonthScreen(
     modifier: Modifier = Modifier,
     month: Month?,
-    onFruit: (fruitDd: Long) -> Unit,
+    onFruit: (fruitId: Long) -> Unit,
     onBack: () -> Unit,
 ) {
-    LazyColumn(modifier = modifier) {
-        item {
-            IconButton(modifier = Modifier.padding(top = 10.dp, start = 10.dp), onClick = onBack) {
-                Icon(imageVector = Icons.Rounded.ArrowBackIosNew, contentDescription = null)
+    val spanCount = 2
+    LazyVerticalGrid(
+        modifier = modifier
+            .fillMaxSize()
+            .background(backgroundGreen), columns = GridCells.Fixed(spanCount)
+    ) {
+        item(span = { GridItemSpan(spanCount) }) {
+            Row {
+                IconButton(
+                    modifier = Modifier.padding(top = 10.dp, start = 10.dp),
+                    onClick = onBack
+                ) {
+                    Icon(imageVector = Icons.Rounded.ArrowBackIosNew, contentDescription = null)
+                }
             }
         }
 
         month?.let { month ->
-            item {
+            item(span = { GridItemSpan(spanCount) }) {
                 Text(
-                    modifier = modifier.padding(horizontal = 20.dp),
+                    modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
                     text = month.name,
                     style = MaterialTheme.typography.h1
                 )
             }
 
             month.fruits?.let { fruits ->
-                items(fruits) { fruit ->
-                    // TODO
+                itemsIndexed(fruits) { index, fruit ->
+                    val paddingValues = if (index % 2 == 0) {
+                        PaddingValues(start = 20.dp, end = 8.dp, bottom = 16.dp)
+                    } else {
+                        PaddingValues(start = 8.dp, end = 20.dp, bottom = 16.dp)
+                    }
+                    FruitCardItem(
+                        modifier = Modifier
+                            .padding(paddingValues)
+                            .clickable { onFruit(fruit.id) },
+                        fruit = fruit,
+                        onFavorite = { }
+                    )
                 }
             }
         }
+    }
+}
 
+@Preview
+@Composable
+fun PreviewMonthScreen(@PreviewParameter(MonthsPreviewProvider::class) months: List<Month>) {
+    FruitAppTheme {
+        MonthScreen(
+            month = months.first(),
+            onFruit = { },
+            onBack = { }
+        )
     }
 }
