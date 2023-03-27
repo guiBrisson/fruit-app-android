@@ -1,6 +1,7 @@
-package me.brisson.fruits.ui.crop
+package me.brisson.fruits.ui.crop_season
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.Icon
@@ -26,6 +27,7 @@ import me.brisson.ui.theme.backgroundGreen
 fun CropSeasonScreen(
     modifier: Modifier = Modifier,
     viewModel: CropSeasonViewModel = hiltViewModel(),
+    onMonth: (monthName: String) -> Unit,
     onBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -35,6 +37,7 @@ fun CropSeasonScreen(
         modifier = modifier,
         months = uiState.months,
         currentMonth = viewModel.currentMonth(),
+        onMonth = onMonth,
         onBack = onBack
     )
 }
@@ -44,6 +47,7 @@ internal fun CropSeasonScreen(
     modifier: Modifier = Modifier,
     months: List<Month>,
     currentMonth: Month?,
+    onMonth: (monthName: String) -> Unit,
     onBack: () -> Unit
 ) {
     val spanCount = 2
@@ -94,7 +98,9 @@ internal fun CropSeasonScreen(
                 }
 
                 MonthsItem(
-                    modifier = Modifier.padding(padding),
+                    modifier = Modifier
+                        .padding(padding)
+                        .clickable { onMonth(month.name) },
                     month = month,
                     currentMonth = currentMonth
                 )
@@ -108,6 +114,6 @@ internal fun CropSeasonScreen(
 @Composable
 fun PreviewCropScreen(@PreviewParameter(MonthsPreviewProvider::class) months: List<Month>) {
     FruitAppTheme {
-        CropSeasonScreen(months = months, currentMonth = months[2], onBack = { })
+        CropSeasonScreen(months = months, currentMonth = months[2], onMonth = { }, onBack = { })
     }
 }

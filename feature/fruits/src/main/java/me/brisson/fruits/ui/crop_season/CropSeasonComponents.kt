@@ -1,4 +1,4 @@
-package me.brisson.fruits.ui.crop
+package me.brisson.fruits.ui.crop_season
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,7 +28,7 @@ fun MonthsItem(
     currentMonth: Month?,
 ) {
     val shape = RoundedCornerShape(4.dp)
-    val offSett: Dp = 2.dp
+    val offSett: Dp = if (currentMonth == month) 4.dp else 2.dp
 
     Box {
         Box(
