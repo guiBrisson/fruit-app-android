@@ -1,24 +1,21 @@
 package me.brisson.fruits.ui.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -27,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.domain.model.Fruit
 import me.brisson.fruits.preview_provider.FruitPreviewProvider
 import me.brisson.ui.components.FruitVerticalItem
+import me.brisson.ui.components.SearchBar
 import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.backgroundOrange
 import me.brisson.ui.theme.backgroundPurple
@@ -57,6 +55,11 @@ internal fun HomeScreen(
     onNutrients: () -> Unit,
     onCrops: () -> Unit,
 ) {
+    var value by remember { mutableStateOf("") }
+    val focusRequester = FocusRequester()
+    val focusManager = LocalFocusManager.current
+    var editTextHasFocus by remember { mutableStateOf(false) }
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -67,42 +70,23 @@ internal fun HomeScreen(
             Text(text = "Bom dia", fontFamily = gothicA1, fontSize = 24.sp)
         }
         item {
-            Box(modifier = Modifier.padding(top = 12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .offset(x = 2.dp, y = 2.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(MaterialTheme.colors.onBackground)
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(4.dp))
-                        .border(
-                            width = 1.dp,
-                            color = MaterialTheme.colors.onBackground,
-                            shape = RoundedCornerShape(4.dp)
-                        )
-                        .background(MaterialTheme.colors.surface)
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    val contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.6f)
-                    Icon(
-                        imageVector = Icons.Rounded.Search,
-                        contentDescription = null,
-                        tint = contentColor
-                    )
-                    Text(
-                        modifier = Modifier.padding(start = 16.dp),
-                        text = "Search",
-                        color = contentColor,
-                        fontFamily = gothicA1,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            }
+            SearchBar(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .focusRequester(focusRequester)
+                    .onFocusChanged { editTextHasFocus = it.hasFocus },
+                value = value,
+                onValueChange = { value = it },
+                label = {
+                    Text("Search")
+                },
+                hasFocus = editTextHasFocus,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = {
+                    focusManager.clearFocus()
+                    //TODO: Navigate to search screen
+                })
+            )
         }
 
         item {

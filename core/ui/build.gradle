@@ -45,7 +45,15 @@ dependencies {
     implementation Dependencies.composeUi
     implementation Dependencies.composeUiPreviewTool
     implementation Dependencies.androidxMaterial
-    implementation Dependencies.accompanistSystemUI
     implementation Dependencies.coilCompose
+    implementation Dependencies.accompanistSystemUI
+
+
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.androidxJunit
+    androidTestImplementation Dependencies.androidxEspresso
+    androidTestImplementation Dependencies.composeJunit
+    debugImplementation Dependencies.composeUiTolling
+    debugImplementation Dependencies.composeUiTest
 
 }
