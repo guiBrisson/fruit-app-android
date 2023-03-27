@@ -40,8 +40,8 @@ android {
 
 dependencies {
     implementation project(path: ':core:ui')
-    implementation project(path: ':core:data') // todo: remove this when core:domain is ready
     implementation project(path: ':feature:nutrients')
+    implementation project(path: ':core:domain')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime

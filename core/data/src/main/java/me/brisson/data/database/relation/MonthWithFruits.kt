@@ -5,7 +5,7 @@ import androidx.room.Junction
 import androidx.room.Relation
 import me.brisson.data.database.entity.FruitEntity
 import me.brisson.data.database.entity.MonthEntity
-import me.brisson.data.model.Month
+import me.brisson.domain.model.Month
 
 data class MonthWithFruits(
     @Embedded val monthEntity: MonthEntity,

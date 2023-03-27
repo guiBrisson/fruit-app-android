@@ -3,7 +3,7 @@ package me.brisson.data.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import me.brisson.data.model.Fruit
+import me.brisson.domain.model.Fruit
 
 @Entity(tableName = "fruit")
 data class FruitEntity(

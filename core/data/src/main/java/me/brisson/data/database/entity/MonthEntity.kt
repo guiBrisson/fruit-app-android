@@ -3,7 +3,7 @@ package me.brisson.data.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import me.brisson.data.model.Month
+import me.brisson.domain.model.Month
 
 @Entity(tableName = "month")
 data class MonthEntity(

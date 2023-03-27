@@ -1,7 +1,7 @@
 package me.brisson.fruits.preview_provider
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import me.brisson.data.model.Month
+import me.brisson.domain.model.Month
 
 class MonthsPreviewProvider: PreviewParameterProvider<List<Month>> {
     override val values = sequenceOf(

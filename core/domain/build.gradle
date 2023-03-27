@@ -1,12 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'me.brisson.data'
+    namespace 'me.brisson.domain'
     compileSdk 33
 
     defaultConfig {
@@ -33,18 +31,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core:domain')
-
     implementation Dependencies.androidxCoreKtx
-
-    //Hilt
-    implementation Dependencies.daggerHilt
-    kapt Dependencies.hiltCompiler
-    implementation Dependencies.hiltNavigation
-
-    //Room
-    implementation Dependencies.roomKtx
-    implementation Dependencies.roomRuntime
-    kapt Dependencies.roomCompiler
-
+    implementation Dependencies.androidxLifecycleRuntime
 }

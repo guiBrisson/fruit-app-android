@@ -1,9 +1,8 @@
-package me.brisson.data.repository
+package me.brisson.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import me.brisson.data.model.Fruit
-import me.brisson.data.model.Month
-
+import me.brisson.domain.model.Fruit
+import me.brisson.domain.model.Month
 
 interface FruitMonthRepository {
     suspend fun addFruit(fruit: Fruit)

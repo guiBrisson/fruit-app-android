@@ -1,15 +1,16 @@
 package me.brisson.data
 
 import android.content.Context
+import me.brisson.domain.repository.SharedPref
 
-class SharedPreferences(context: Context) {
+class SharedPreferences(context: Context) :SharedPref {
     private val sharedPref = context.getSharedPreferences(userSetting, Context.MODE_PRIVATE)
 
-    fun setHasLoggedBefore(value: Boolean) = putBoolean(hasLoggedBefore, value)
-    fun hasLoggedBefore(): Boolean = getBoolean(hasLoggedBefore)
+    override fun setHasLoggedBefore(value: Boolean) = putBoolean(hasLoggedBefore, value)
+    override fun hasLoggedBefore(): Boolean = getBoolean(hasLoggedBefore)
 
-    fun setSelectedNutrientId(id: Long) = putLong(selectedNutrientId, id)
-    fun selectedNutrientId() = getLong(selectedNutrientId)
+    override fun setSelectedNutrientId(id: Long) = putLong(selectedNutrientId, id)
+    override fun selectedNutrientId(): Long = getLong(selectedNutrientId)
 
 
     // private getters and setters functions
