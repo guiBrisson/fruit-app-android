@@ -3,16 +3,24 @@ package com.example.onboarding.ui.onboarding
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.brisson.ui.components.AppButton
+import me.brisson.ui.components.SearchBar
 import me.brisson.ui.theme.FruitAppTheme
 
 @Composable
@@ -68,11 +76,19 @@ fun FirstComponent(modifier: Modifier = Modifier) {
 
 @Composable
 fun SecondComponent(modifier: Modifier = Modifier) {
+
+    val focusRequester = FocusRequester()
+    val focusManager = LocalFocusManager.current
+    var editTextHasFocus by remember { mutableStateOf(false) }
+    var value by remember {
+        mutableStateOf("")
+    }
+
     Column(
         modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)
-            .padding(start = 20.dp)
+            .padding(horizontal = 20.dp)
     ) {
         Text(
             modifier = Modifier.padding(bottom = 10.dp, top = 24.dp),
@@ -86,6 +102,17 @@ fun SecondComponent(modifier: Modifier = Modifier) {
             color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
             text = "Não precisa ser seu nome, pode ser qualquer coisa."
         )
+        SearchBar(modifier = Modifier
+            .padding(bottom = 42.dp)
+            .focusRequester(focusRequester)
+            .onFocusChanged { editTextHasFocus = it.hasFocus },
+            value = value,
+            label = { Text(text = "John Doe") },
+            hasFocus = editTextHasFocus,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            onValueChange = { value = it }
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,7 +121,7 @@ fun SecondComponent(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                modifier = Modifier.padding(start = 48.dp),
+                modifier = Modifier.padding(start = 28.dp),
                 text = "Pular",
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.button
@@ -102,8 +129,7 @@ fun SecondComponent(modifier: Modifier = Modifier) {
             val accent = Color(0XFFD253E7)
             AppButton(
                 modifier = Modifier
-                    .width(200.dp)
-                    .padding(end = 22.dp),
+                    .width(200.dp),
                 backgroundColor = MaterialTheme.colors.background,
                 borderColor = Color.Black,
                 accentColor = accent,
