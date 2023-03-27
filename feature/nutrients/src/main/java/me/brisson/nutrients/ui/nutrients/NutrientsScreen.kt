@@ -7,9 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,11 +19,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import me.brisson.nutrients.domain.model.Nutrient
 import me.brisson.nutrients.ui.theme.NutrientsTheme
+import me.brisson.ui.components.AppButton
 
 @Composable
 fun NutrientsScreen(
     modifier: Modifier = Modifier,
     viewModel: NutrientsViewModel = hiltViewModel(),
+    onHome: () -> Unit,
     onBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -35,21 +35,25 @@ fun NutrientsScreen(
     }
 
     NutrientsScreen(
-        nutrient = selectedNutrient,
+        uiState = uiState,
         onBack = onBack,
         modifier = modifier,
-        nutrientsList = uiState.nutrients,
-        onNutrientClick = {
-            selectedNutrient = it
-        })
+        selectedNutrient = selectedNutrient,
+        onHome = onHome,
+        onNutrientClick = { nutrient ->
+            viewModel.findNextNutrient(nutrient)
+            selectedNutrient = nutrient
+        }
+    )
 }
 
 @Composable
 internal fun NutrientsScreen(
     modifier: Modifier = Modifier,
-    nutrient: Nutrient,
-    nutrientsList: List<Nutrient>,
+    uiState: NutrientsUiState,
+    selectedNutrient: Nutrient,
     onNutrientClick: (Nutrient) -> Unit,
+    onHome: () -> Unit,
     onBack: () -> Unit
 ) {
 
@@ -58,77 +62,125 @@ internal fun NutrientsScreen(
 
     Scaffold(scaffoldState = scaffoldState, drawerContent = {
         NutrientsSideBar(
-            nutrientsList = nutrientsList,
-            selectedNutrient = nutrient,
+            nutrientsList = uiState.nutrients,
+            selectedNutrient = selectedNutrient,
             onItemClick = onNutrientClick
         )
     }) { scaffoldPadding ->
-        LazyColumn(
+        Column(
             modifier = modifier
                 .padding(scaffoldPadding)
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
         ) {
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    IconButton(onClick = {
-                        coroutineScope.launch {
-                            scaffoldState.drawerState.open()
+            LazyColumn {
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                scaffoldState.drawerState.open()
+                            }
+                        }) {
+                            Icon(
+                                imageVector = Icons.Rounded.Menu,
+                                contentDescription = null,
+                                tint = MaterialTheme.colors.onBackground
+                            )
                         }
-                    }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Menu,
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.onBackground
-                        )
-                    }
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.Rounded.Close,
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.onBackground
-                        )
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.Rounded.Close,
+                                contentDescription = null,
+                                tint = MaterialTheme.colors.onBackground
+                            )
+                        }
                     }
                 }
-            }
-            item {
-                Row(
-                    modifier = Modifier.padding(20.dp, bottom = 0.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Info,
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.onBackground
-                    )
+                item {
+                    Row(
+                        modifier = Modifier.padding(20.dp, bottom = 0.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Info,
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.onBackground
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 8.dp),
+                            text = selectedNutrient.name,
+                            color = MaterialTheme.colors.onBackground,
+                            fontWeight = FontWeight.Black,
+                            fontSize = 24.sp
+                        )
+                    }
                     Text(
-                        modifier = Modifier.padding(start = 8.dp),
-                        text = nutrient.name,
-                        color = MaterialTheme.colors.onBackground,
-                        fontWeight = FontWeight.Black,
-                        fontSize = 24.sp
+                        modifier = Modifier.padding(start = 20.dp, top = 0.dp),
+                        text = selectedNutrient.subTitle,
+                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
                     )
                 }
-                Text(
-                    modifier = Modifier.padding(start = 20.dp, top = 0.dp),
-                    text = nutrient.subTitle,
-                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
-                )
-            }
-            itemsIndexed(nutrient.paragraphs) { index, paragraph ->
-                val padding = if (index == 0) {
-                    PaddingValues(top = 24.dp, start = 20.dp, end = 20.dp)
-                } else {
-                    PaddingValues(top = 8.dp, start = 20.dp, end = 20.dp)
+                itemsIndexed(selectedNutrient.paragraphs) { index, paragraph ->
+                    val padding = if (index == 0) {
+                        PaddingValues(top = 24.dp, start = 20.dp, end = 20.dp)
+                    } else {
+                        PaddingValues(top = 8.dp, start = 20.dp, end = 20.dp)
+                    }
+                    Text(
+                        modifier = Modifier.padding(padding),
+                        text = paragraph,
+                        color = MaterialTheme.colors.onBackground
+                    )
                 }
-                Text(
-                    modifier = Modifier.padding(padding),
-                    text = paragraph,
-                    color = MaterialTheme.colors.onBackground
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                AppButton(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .padding(top = 40.dp, end = 20.dp, bottom = 30.dp),
+                    backgroundColor = MaterialTheme.colors.surface,
+                    accentColor = MaterialTheme.colors.primary,
+                    borderColor = MaterialTheme.colors.primary,
+                    trailingIcon = {
+                        if (uiState.nextNutrient == null) {
+                            Icon(
+                                imageVector = Icons.Rounded.Home,
+                                contentDescription = null
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Rounded.ArrowForward,
+                                contentDescription = null
+                            )
+                        }
+                    },
+                    text = {
+                        Column {
+                            val text = uiState.nextNutrient?.name ?: "Voltar"
+                            Text(text = text)
+                            uiState.nextNutrient?.let {
+                                Text(
+                                    text = "Próximo capítulo",
+                                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                                )
+                            }
+                        }
+                    },
+                    onClick = {
+                        if (uiState.nextNutrient == null) {
+                            onHome()
+                        } else {
+                            onNutrientClick(uiState.nextNutrient)
+                        }
+                    }
                 )
             }
         }
@@ -138,7 +190,7 @@ internal fun NutrientsScreen(
 @Preview(showBackground = true, name = "Light", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewNutrientsScreenDark() {
-    val nutrients = listOf<Nutrient>(
+    val nutrients = listOf(
         Nutrient(
             id = 1,
             name = "Flavonoides",
@@ -162,9 +214,10 @@ fun PreviewNutrientsScreenDark() {
     )
     NutrientsTheme {
         NutrientsScreen(
-            nutrient = nutrients[1],
+            selectedNutrient = nutrients[0],
             onBack = { },
-            nutrientsList = nutrients,
+            uiState = NutrientsUiState(nutrients = nutrients),
+            onHome = { },
             onNutrientClick = {})
     }
 }
