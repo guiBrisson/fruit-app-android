@@ -1,4 +1,4 @@
-package me.brisson.fruits.ui.crop
+package me.brisson.fruits.ui.crop_season
 
 import me.brisson.domain.model.Month
 
