@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.example.onboarding'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.2.0'
+    }
+}
+
+dependencies {
+    implementation project(path: ':core:domain')
+    implementation project(path: ':core:ui')
+
+    implementation Dependencies.androidxCoreKtx
+    implementation Dependencies.androidxLifecycleRuntime
+    implementation Dependencies.androidxActivityCompose
+    implementation Dependencies.androidxMaterial
+
+    //Coil
+    implementation Dependencies.coilCompose
+
+    //Compose
+    implementation Dependencies.composeUi
+    implementation Dependencies.composeUiPreviewTool
+    implementation Dependencies.composeIconsExtended
+
+    //Navigation
+    implementation Dependencies.navigationCompose
+
+    //Hilt
+    implementation Dependencies.daggerHilt
+    kapt Dependencies.hiltCompiler
+    implementation Dependencies.hiltNavigation
+
+    //Test
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.androidxJunit
+    androidTestImplementation Dependencies.androidxEspresso
+    androidTestImplementation Dependencies.composeJunit
+    debugImplementation Dependencies.composeUiTolling
+    debugImplementation Dependencies.composeUiTest
+}
