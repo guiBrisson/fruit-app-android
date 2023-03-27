@@ -10,14 +10,27 @@ data class FruitEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "fruitId")
     val id: Long = 0,
     val name: String,
+    val imageUrl: String?,
     val summary: String,
     val isFavorite: Boolean = false,
 ) {
     fun toFruit(): Fruit {
-        return Fruit(id, name, summary, isFavorite)
+        return Fruit(
+            id = id,
+            name = name,
+            imageUrl = imageUrl,
+            summary = summary,
+            isFavorite = isFavorite
+        )
     }
 }
 
 fun Fruit.toFruitEntity(): FruitEntity {
-    return FruitEntity(id, name, summary, isFavorite)
+    return FruitEntity(
+        id = id,
+        name = name,
+        imageUrl = imageUrl ,
+        summary = summary,
+        isFavorite = isFavorite
+    )
 }

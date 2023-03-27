@@ -51,10 +51,8 @@ fun MonthsItem(
         ) {
             Column(
                 modifier = Modifier.padding(
-                    top = 16.dp,
-                    bottom = 32.dp,
-                    start = 12.dp,
-                    end = 12.dp
+                    vertical = 16.dp,
+                    horizontal = 12.dp,
                 )
             ) {
                 Text(
@@ -68,7 +66,7 @@ fun MonthsItem(
                 month.fruits?.let { fruits ->
                     if (fruits.isNotEmpty()) {
                         Text(
-                            modifier = Modifier.padding(top = 5.dp),
+                            modifier = Modifier.padding(top = 2.dp),
                             text = "${fruits.size} frutas",
                             fontFamily = gothicA1,
                             fontWeight = FontWeight.Light,

@@ -13,6 +13,7 @@ object Versions {
     const val androidxEspresso = "3.5.1"
     const val room = "2.5.0"
     const val accompanist = "0.30.0"
+    const val coil = "2.3.0"
 }
 
 object Dependencies {
@@ -49,4 +50,7 @@ object Dependencies {
 
     // Accompanist
     const val accompanistSystemUI = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
+
+    // Coil
+    const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
 }
