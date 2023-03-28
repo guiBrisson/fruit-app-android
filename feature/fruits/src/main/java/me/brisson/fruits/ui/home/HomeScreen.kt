@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.domain.model.Fruit
-import me.brisson.fruits.preview_provider.FruitPreviewProvider
+import me.brisson.ui.preview_provider.FruitPreviewProvider
 import me.brisson.ui.components.FruitVerticalItem
 import me.brisson.ui.components.SearchBar
 import me.brisson.ui.theme.FruitAppTheme

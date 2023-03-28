@@ -4,13 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Favorite
-import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,12 +13,18 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import me.brisson.domain.model.Fruit
+import me.brisson.ui.R
+import me.brisson.ui.preview_provider.FruitPreviewProvider
+import me.brisson.ui.theme.FruitAppTheme
 
 @Composable
 fun FruitVerticalItem(
@@ -98,24 +98,21 @@ fun FruitVerticalItem(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            val imageVector = if (fruit.isFavorite) {
-                Icons.Rounded.Favorite
+            val painter = if (fruit.isFavorite) {
+                painterResource(id = R.drawable.ic_heart_filled)
             } else {
-                Icons.Rounded.FavoriteBorder
+                painterResource(id = R.drawable.ic_heart)
             }
 
-            val color = if (fruit.isFavorite) {
-                Color.Red
-            } else {
-                Color.Black
-            }
 
-            IconButton(onClick = { onFavorite(!fruit.isFavorite) }) {
+            IconButton(
+                modifier = Modifier.padding(top = 2.dp, end = 2.dp),
+                onClick = { onFavorite(!fruit.isFavorite) }
+            ) {
                 Icon(
-                    modifier = Modifier.padding(top = 2.dp, end = 2.dp),
-                    imageVector = imageVector,
+                    painter = painter,
                     contentDescription = null,
-                    tint = color
+                    tint= Color.Unspecified
                 )
             }
         }
@@ -193,13 +190,11 @@ fun FruitCardItem(
                     )
                 }
 
-                val imageVector = if (fruit.isFavorite) {
-                    Icons.Rounded.Favorite
+                val painter = if (fruit.isFavorite) {
+                    painterResource(id = R.drawable.ic_heart_filled)
                 } else {
-                    Icons.Rounded.FavoriteBorder
+                    painterResource(id = R.drawable.ic_heart)
                 }
-
-                val color = if (fruit.isFavorite) Color.Red else Color.Black
 
                 IconButton(
                     modifier = Modifier
@@ -208,12 +203,20 @@ fun FruitCardItem(
                     onClick = { onFavorite(!fruit.isFavorite) }
                 ) {
                     Icon(
-                        imageVector = imageVector,
+                        painter = painter,
                         contentDescription = null,
-                        tint = color
+                        tint= Color.Unspecified
                     )
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewFruitVerticalItem(@PreviewParameter(FruitPreviewProvider::class) fruit: Fruit) {
+    FruitAppTheme {
+        FruitVerticalItem(fruit = fruit, onFavorite = { })
     }
 }

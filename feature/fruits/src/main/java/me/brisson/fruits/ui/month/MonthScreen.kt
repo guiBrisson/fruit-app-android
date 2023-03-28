@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.domain.model.Fruit
 import me.brisson.domain.model.Month
-import me.brisson.fruits.preview_provider.MonthsPreviewProvider
+import me.brisson.ui.preview_provider.MonthsPreviewProvider
 import me.brisson.ui.components.FruitCardItem
 import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.backgroundGreen
