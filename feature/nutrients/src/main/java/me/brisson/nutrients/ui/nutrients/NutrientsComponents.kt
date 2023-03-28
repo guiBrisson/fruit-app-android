@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,6 +14,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +44,7 @@ fun NutrientsSideBar(
                     top = 32.dp,
                     start = 20.dp,
                     end = 55.dp,
-                    bottom = 32.dp
+                    bottom = 20.dp
                 ),
                 text = "Nutrientes importantes",
                 fontWeight = FontWeight.Black,
@@ -61,9 +63,18 @@ fun NutrientsSideBar(
             } else {
                 14.sp
             }
-            Row(modifier = Modifier.clickable { onItemClick(nutrient) }) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickable { onItemClick(nutrient) }
+                    .padding(horizontal = 28.dp, vertical = 12.dp)
+                ,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
-                    modifier = Modifier.padding(bottom = 16.dp, start = 48.dp),
+                    modifier = Modifier,
                     text = nutrient.name,
                     fontWeight = fontWeight,
                     fontSize = fontSize,
