@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import me.brisson.domain.model.Fruit
 import me.brisson.domain.model.Month
 import me.brisson.fruits.preview_provider.MonthsPreviewProvider
 import me.brisson.ui.components.FruitCardItem
@@ -41,6 +42,7 @@ fun MonthScreen(
             modifier = modifier,
             month = month,
             onFruit = onFruit,
+            onFavorite = { fruit -> viewModel.updateFruit(fruit) },
             onBack = onBack
         )
     }
@@ -52,6 +54,7 @@ internal fun MonthScreen(
     modifier: Modifier = Modifier,
     month: Month?,
     onFruit: (fruitId: Long) -> Unit,
+    onFavorite: (fruit: Fruit) -> Unit,
     onBack: () -> Unit,
 ) {
     val spanCount = 2
@@ -92,7 +95,7 @@ internal fun MonthScreen(
                             .padding(paddingValues)
                             .clickable { onFruit(fruit.id) },
                         fruit = fruit,
-                        onFavorite = { }
+                        onFavorite = { favorite -> onFavorite(fruit.copy(isFavorite = favorite)) }
                     )
                 }
             }
@@ -107,6 +110,7 @@ fun PreviewMonthScreen(@PreviewParameter(MonthsPreviewProvider::class) months: L
         MonthScreen(
             month = months.first(),
             onFruit = { },
+            onFavorite = { },
             onBack = { }
         )
     }

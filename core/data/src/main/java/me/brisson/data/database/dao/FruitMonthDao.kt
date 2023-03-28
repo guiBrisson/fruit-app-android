@@ -11,6 +11,9 @@ interface FruitMonthDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFruitMonthCrossRef(fruitMonthCrossRef: FruitMonthCrossRef)
 
+    @Update
+    suspend fun updateFruitMonthCrossRef(fruitMonthCrossRef: FruitMonthCrossRef)
+
     @Transaction
     @Query("SELECT * FROM fruit")
     fun getAllFruitsWithMonths(): Flow<List<FruitWithMonths>>

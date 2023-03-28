@@ -43,7 +43,8 @@ fun HomeScreen(
         modifier = modifier,
         fruits = uiState.fruits,
         onNutrients = onNutrients,
-        onCrops = onCrops
+        onCrops = onCrops,
+        onFavorite = { fruit -> viewModel.updateFruit(fruit) }
     )
 
 }
@@ -54,6 +55,7 @@ internal fun HomeScreen(
     fruits: List<Fruit>,
     onNutrients: () -> Unit,
     onCrops: () -> Unit,
+    onFavorite: (fruit: Fruit) -> Unit,
 ) {
     var value by remember { mutableStateOf("") }
     val focusRequester = FocusRequester()
@@ -134,7 +136,7 @@ internal fun HomeScreen(
             FruitVerticalItem(
                 modifier = Modifier.padding(paddingValues),
                 fruit = fruit,
-                onFavorite = { }
+                onFavorite = { favorite -> onFavorite(fruit.copy(isFavorite = favorite)) }
             )
         }
     }
@@ -144,6 +146,6 @@ internal fun HomeScreen(
 @Composable
 fun PreviewHomeScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: List<Fruit>) {
     FruitAppTheme {
-        HomeScreen(fruits = fruits, onNutrients = { }, onCrops = { })
+        HomeScreen(fruits = fruits, onNutrients = { }, onCrops = { }, onFavorite = { })
     }
 }
