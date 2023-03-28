@@ -9,6 +9,9 @@ interface FruitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFruit(fruitEntity: FruitEntity): Long
 
+    @Update
+    suspend fun updateFruit(fruitEntity: FruitEntity)
+
     @Query("SELECT * FROM fruit")
     fun getAllFruits(): Flow<List<FruitEntity>>
 

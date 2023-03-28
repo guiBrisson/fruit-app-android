@@ -1,4 +1,4 @@
-package me.brisson.fruits.preview_provider
+package me.brisson.ui.preview_provider
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import me.brisson.domain.model.Fruit

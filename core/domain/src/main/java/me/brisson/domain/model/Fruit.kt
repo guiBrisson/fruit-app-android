@@ -5,6 +5,6 @@ data class Fruit(
     val name: String,
     val imageUrl: String? = null,
     val summary: String,
-    val isFavorite: Boolean = false,
+    var isFavorite: Boolean = false,
     val months: List<Month>? = emptyList()
 )

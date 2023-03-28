@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.brisson.domain.model.Month
-import me.brisson.fruits.preview_provider.MonthsPreviewProvider
+import me.brisson.ui.preview_provider.MonthsPreviewProvider
 import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.gothicA1
 

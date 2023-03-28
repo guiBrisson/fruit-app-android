@@ -4,14 +4,17 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import me.brisson.domain.model.Fruit
 import me.brisson.domain.repository.FruitMonthRepository
 import me.brisson.fruits.ui.FruitsNavigationArgs
 import javax.inject.Inject
 
 @HiltViewModel
 class MonthViewModel @Inject constructor(
-    fruitMonthRepository: FruitMonthRepository,
+    private val fruitMonthRepository: FruitMonthRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val monthName: String
@@ -32,4 +35,9 @@ class MonthViewModel @Inject constructor(
         state.copy(loading = false, month = month)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _uiState.value)
 
+    fun updateFruit(fruit: Fruit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            fruitMonthRepository.updateFruit(fruit)
+        }
+    }
 }
