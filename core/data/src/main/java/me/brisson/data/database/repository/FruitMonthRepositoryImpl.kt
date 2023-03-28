@@ -38,6 +38,27 @@ class FruitMonthRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun updateFruit(fruit: Fruit) {
+        fruitDao.updateFruit(fruit.toFruitEntity())
+
+        // Updating months if not null or empty
+        fruit.months?.forEach { month ->
+            // Creating month if does not exists
+            if (!monthDao.doesMonthExists(month.name)) {
+                monthDao.insertMonth(month.toMonthEntity())
+            }
+
+            // Updating relation between fruit and month
+            fruitMonthDao.updateFruitMonthCrossRef(
+                FruitMonthCrossRef(
+                    fruitId = fruit.id,
+                    monthName = month.name
+                )
+            )
+        }
+
+    }
+
     override suspend fun addMonth(vararg month: Month) {
         // Adding each month to the database
         month.forEach { monthDao.insertMonth(it.toMonthEntity()) }

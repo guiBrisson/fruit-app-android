@@ -7,7 +7,7 @@ import me.brisson.data.database.entity.MonthEntity
 @Dao
 interface MonthDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMonth(fruit: MonthEntity)
+    suspend fun insertMonth(month: MonthEntity)
 
     @Query("SELECT * FROM month")
     fun getAllMonths(): Flow<List<MonthEntity>>
