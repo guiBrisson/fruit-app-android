@@ -10,13 +10,15 @@ import me.brisson.domain.fruits
 import me.brisson.domain.model.Fruit
 import me.brisson.domain.months
 import me.brisson.domain.repository.FruitMonthRepository
+import me.brisson.domain.repository.Greetings
 import me.brisson.domain.repository.SharedPref
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     sharedPref: SharedPref,
-    private val fruitMonthRepository: FruitMonthRepository
+    private val greetings: Greetings,
+    private val fruitMonthRepository: FruitMonthRepository,
     ) : ViewModel() {
 
     private val _fruits: Flow<List<Fruit>> = fruitMonthRepository.getAllFruits()
@@ -29,6 +31,7 @@ class HomeViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _uiState.value)
 
     init {
+        getGreeting()
         //TODO: move this to onBoarding module ASAP
         if (!sharedPref.hasLoggedBefore()) {
             viewModelScope.launch(Dispatchers.IO) {
@@ -37,10 +40,16 @@ class HomeViewModel @Inject constructor(
             }
             sharedPref.setHasLoggedBefore(true)
         }
+
     }
     fun updateFruit(fruit: Fruit) {
         viewModelScope.launch(Dispatchers.IO) {
             fruitMonthRepository.updateFruit(fruit)
         }
+    }
+
+    private fun getGreeting() {
+        val greetings = greetings.generateGreeting("Guilherme")
+        _uiState.update { it.copy(greetings = greetings ) }
     }
 }

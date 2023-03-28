@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import me.brisson.data.GreetingsImpl
 import me.brisson.data.SharedPreferences
 import me.brisson.data.database.CoreDatabase
 import me.brisson.data.database.dao.FruitDao
@@ -14,6 +15,7 @@ import me.brisson.data.database.dao.FruitMonthDao
 import me.brisson.data.database.dao.MonthDao
 import me.brisson.data.database.repository.FruitMonthRepositoryImpl
 import me.brisson.domain.repository.FruitMonthRepository
+import me.brisson.domain.repository.Greetings
 import me.brisson.domain.repository.SharedPref
 import javax.inject.Singleton
 
@@ -26,6 +28,10 @@ class CoreDataModule {
     fun providesSharePreferences(@ApplicationContext context: Context): SharedPref {
         return SharedPreferences(context)
     }
+
+    @Provides
+    @Singleton
+    fun providesGreetings(@ApplicationContext context: Context): Greetings = GreetingsImpl(context)
 
     @Provides
     @Singleton
