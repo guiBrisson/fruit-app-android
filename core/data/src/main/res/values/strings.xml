@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dawn_greeting">Boa madruga, %s ;)</string>
+    <string name="morning_greeting">Bom dia, %s</string>
+    <string name="afternoon_greeting">Boa tarde, %s</string>
+    <string name="evening_greeting">Boa noite, %s</string>
+</resources>

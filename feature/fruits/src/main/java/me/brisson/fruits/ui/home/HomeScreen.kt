@@ -41,6 +41,7 @@ fun HomeScreen(
 
     HomeScreen(
         modifier = modifier,
+        greeting = uiState.greetings,
         fruits = uiState.fruits,
         onNutrients = onNutrients,
         onCrops = onCrops,
@@ -52,6 +53,7 @@ fun HomeScreen(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
+    greeting: String,
     fruits: List<Fruit>,
     onNutrients: () -> Unit,
     onCrops: () -> Unit,
@@ -70,7 +72,7 @@ internal fun HomeScreen(
         item {
             Text(
                 modifier = Modifier.padding(start = 20.dp, top = 20.dp),
-                text = "Bom dia",
+                text = greeting,
                 fontFamily = gothicA1,
                 fontSize = 24.sp
             )
@@ -124,13 +126,18 @@ internal fun HomeScreen(
 
         item {
             Text(
-                modifier = Modifier.padding(top = 24.dp, start = 20.dp, end = 20.dp, bottom = 12.dp),
+                modifier = Modifier.padding(
+                    top = 24.dp,
+                    start = 20.dp,
+                    end = 20.dp,
+                    bottom = 12.dp
+                ),
                 text = "Frutas",
                 style = MaterialTheme.typography.h3
             )
         }
 
-        items(fruits) {fruit ->
+        items(fruits) { fruit ->
             FruitVerticalItem(
                 modifier = Modifier.padding(vertical = 4.dp, horizontal = 20.dp),
                 fruit = fruit,
@@ -148,6 +155,11 @@ internal fun HomeScreen(
 @Composable
 fun PreviewHomeScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: List<Fruit>) {
     FruitAppTheme {
-        HomeScreen(fruits = fruits, onNutrients = { }, onCrops = { }, onFavorite = { })
+        HomeScreen(
+            greeting = "Bom dia",
+            fruits = fruits,
+            onNutrients = { },
+            onCrops = { },
+            onFavorite = { })
     }
 }
