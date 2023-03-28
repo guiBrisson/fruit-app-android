@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import me.brisson.domain.repository.SharedPref
 import me.brisson.nutrients.data.local.nutrients
 import me.brisson.nutrients.domain.model.Nutrient
 import me.brisson.nutrients.domain.repository.NutrientRepository
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NutrientsViewModel @Inject constructor(
-    private val nutrientRepository: NutrientRepository
+    private val nutrientRepository: NutrientRepository,
+    private val sharedPref: SharedPref
 ) : ViewModel() {
 
     private val _nutrients: Flow<List<Nutrient>> = nutrientRepository.getAllNutrients()
@@ -29,5 +31,16 @@ class NutrientsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             nutrientRepository.insertNutrients(*nutrients.toTypedArray())
         }
+    }
+
+    fun saveCurrentNutrient(nutrientId: Long) {
+        sharedPref.setSelectedNutrientId(nutrientId)
+    }
+
+    fun getLastOpenedNutrient() : Nutrient? {
+        val nutrients = uiState.value.nutrients
+        val lastNutrientId = sharedPref.selectedNutrientId()
+
+        return nutrients.find { it.id == lastNutrientId }
     }
 }

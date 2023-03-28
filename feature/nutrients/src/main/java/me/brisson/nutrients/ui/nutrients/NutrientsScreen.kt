@@ -13,11 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import me.brisson.nutrients.domain.model.Nutrient
+import me.brisson.nutrients.ui.preview_provider.NutrientsPreviewProvider
 import me.brisson.nutrients.ui.theme.NutrientsTheme
 import me.brisson.ui.components.AppButton
 
@@ -34,6 +36,8 @@ fun NutrientsScreen(
         NutrientsScreen(
             modifier = modifier,
             nutrients = uiState.nutrients,
+            lastSelectedNutrient = viewModel.getLastOpenedNutrient(),
+            onSaveLastNutrient = { id -> viewModel.saveCurrentNutrient(id) },
             onHome = onHome,
             onBack = onBack
         )
@@ -57,13 +61,19 @@ fun NutrientsScreen(
 internal fun NutrientsScreen(
     modifier: Modifier = Modifier,
     nutrients: List<Nutrient>,
+    lastSelectedNutrient: Nutrient? = null,
+    onSaveLastNutrient: (nutrientId: Long) -> Unit,
     onHome: () -> Unit,
     onBack: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    var selectedNutrient by remember { mutableStateOf(nutrients.first()) }
+    var selectedNutrient by remember {
+        mutableStateOf(lastSelectedNutrient ?: nutrients.first())
+    }
+
+    onSaveLastNutrient(selectedNutrient.id)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -129,7 +139,8 @@ internal fun NutrientsScreen(
                 Text(
                     modifier = Modifier.padding(start = 20.dp, top = 0.dp),
                     text = selectedNutrient.subTitle,
-                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
+                    fontSize = 16.sp
                 )
             }
             itemsIndexed(selectedNutrient.paragraphs) { index, paragraph ->
@@ -141,7 +152,8 @@ internal fun NutrientsScreen(
                 Text(
                     modifier = Modifier.padding(padding),
                     text = paragraph,
-                    color = MaterialTheme.colors.onBackground
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 16.sp
                 )
             }
             item {
@@ -179,11 +191,13 @@ internal fun NutrientsScreen(
                         text = {
                             Column {
                                 val text = nextNutrient?.name ?: "Voltar"
-                                Text(text = text)
+                                Text(text = text, fontSize = 16.sp)
                                 nextNutrient?.let {
                                     Text(
+                                        modifier = Modifier.offset(y = (-4).dp),
                                         text = "Próximo capítulo",
-                                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
+                                        fontSize = 12.sp,
                                     )
                                 }
                             }
@@ -204,33 +218,12 @@ internal fun NutrientsScreen(
 
 @Preview(showBackground = true, name = "Light", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewNutrientsScreen() {
-    val nutrients = listOf(
-        Nutrient(
-            id = 1,
-            name = "Flavonoides",
-            subTitle = "Melhor amigo dos Flávios",
-            paragraphs = listOf(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            )
-        ),
-        Nutrient(
-            id = 2,
-            name = "Vitamina C",
-            subTitle = "Melhor amigo dos velhos",
-            paragraphs = listOf(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem."
-            )
-        )
-    )
+fun PreviewNutrientsScreen(@PreviewParameter(NutrientsPreviewProvider::class) nutrients: List<Nutrient>) {
     NutrientsTheme {
         NutrientsScreen(
             onBack = { },
             nutrients = nutrients,
+            onSaveLastNutrient = { },
             onHome = { },
         )
     }
