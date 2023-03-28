@@ -6,5 +6,6 @@ data class NutrientsUiState(
     val loading: Boolean = true,
     val nutrients: List<Nutrient> = emptyList(),
     val error: Throwable? = null,
-    val nextNutrient: Nutrient? = null
+//    val nextNutrient: Nutrient? = null,
+//    val selectedNutrient: Nutrient? = null
 )

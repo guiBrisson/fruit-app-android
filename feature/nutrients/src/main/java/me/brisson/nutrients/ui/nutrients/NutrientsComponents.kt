@@ -9,10 +9,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +46,7 @@ fun NutrientsSideBar(
                 ),
                 text = "Nutrientes importantes",
                 fontWeight = FontWeight.Black,
-                fontSize = 24.sp,   
+                fontSize = 24.sp,
                 color = MaterialTheme.colors.onBackground
             )
         }
@@ -78,11 +82,61 @@ fun NutrientsSideBar(
     }
 }
 
+@Composable
+fun EmptyListNutrient(
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colors.onBackground,
+    onReload: () -> Unit,
+) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = "Deu algo errado com a lista de nutrientes",
+            color = color.copy(alpha = 0.6f),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Center
+        )
+        TextButton(modifier = Modifier.padding(top = 8.dp), onClick = onReload) {
+            Text(text = "Clique aqui para recarregar", color = color, textAlign = TextAlign.Center)
+        }
+    }
+}
+
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewNutrientsSideBar() {
     NutrientsTheme {
-        val nutrients = listOf<Nutrient>(Nutrient(id = 1,name = "Flavonoides", subTitle = "Melhor amigo dos Flávios", paragraphs = listOf("ffffffffffffffffffffffffffffffffff","ffffffffffffffffffffffffffffff")), Nutrient(id = 2,name = "Vitamina C", subTitle = "Melhor amigo dos velhos", paragraphs = listOf("cccccccccccccccccccccccccccccccc","ccccccccccccccccccccccccccccccccc")))
-        NutrientsSideBar(nutrientsList = nutrients, selectedNutrient = nutrients[0], onItemClick = {})
+        val nutrients = listOf(
+            Nutrient(
+                id = 1,
+                name = "Flavonoides",
+                subTitle = "Melhor amigo dos Flávios",
+                paragraphs = listOf(
+                    "ffffffffffffffffffffffffffffffffff",
+                    "ffffffffffffffffffffffffffffff"
+                )
+            ),
+            Nutrient(
+                id = 2,
+                name = "Vitamina C",
+                subTitle = "Melhor amigo dos velhos",
+                paragraphs = listOf(
+                    "cccccccccccccccccccccccccccccccc",
+                    "ccccccccccccccccccccccccccccccccc"
+                )
+            )
+        )
+        NutrientsSideBar(
+            nutrientsList = nutrients,
+            selectedNutrient = nutrients[0],
+            onItemClick = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewEmptyListNutrient() {
+    NutrientsTheme {
+        EmptyListNutrient(onReload = { })
     }
 }
