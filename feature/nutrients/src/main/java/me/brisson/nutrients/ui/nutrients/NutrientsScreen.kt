@@ -137,7 +137,8 @@ internal fun NutrientsScreen(
                 Text(
                     modifier = Modifier.padding(start = 20.dp, top = 0.dp),
                     text = selectedNutrient.subTitle,
-                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
+                    fontSize = 16.sp
                 )
             }
             itemsIndexed(selectedNutrient.paragraphs) { index, paragraph ->
@@ -149,7 +150,8 @@ internal fun NutrientsScreen(
                 Text(
                     modifier = Modifier.padding(padding),
                     text = paragraph,
-                    color = MaterialTheme.colors.onBackground
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 16.sp
                 )
             }
             item {
@@ -187,11 +189,13 @@ internal fun NutrientsScreen(
                         text = {
                             Column {
                                 val text = nextNutrient?.name ?: "Voltar"
-                                Text(text = text)
+                                Text(text = text, fontSize = 16.sp)
                                 nextNutrient?.let {
                                     Text(
+                                        modifier = Modifier.offset(y = (-4).dp),
                                         text = "Próximo capítulo",
-                                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
+                                        fontSize = 12.sp,
                                     )
                                 }
                             }
