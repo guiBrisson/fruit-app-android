@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.domain.model.Fruit
-import me.brisson.ui.preview_provider.FruitPreviewProvider
 import me.brisson.ui.components.FruitVerticalItem
 import me.brisson.ui.components.SearchBar
+import me.brisson.ui.preview_provider.FruitPreviewProvider
 import me.brisson.ui.theme.FruitAppTheme
 import me.brisson.ui.theme.backgroundOrange
 import me.brisson.ui.theme.backgroundPurple
@@ -66,15 +66,19 @@ internal fun HomeScreen(
         modifier = modifier
             .fillMaxSize()
             .background(backgroundPurple)
-            .padding(20.dp)
     ) {
         item {
-            Text(text = "Bom dia", fontFamily = gothicA1, fontSize = 24.sp)
+            Text(
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp),
+                text = "Bom dia",
+                fontFamily = gothicA1,
+                fontSize = 24.sp
+            )
         }
         item {
             SearchBar(
                 modifier = Modifier
-                    .padding(top = 12.dp)
+                    .padding(top = 12.dp, start = 20.dp, end = 20.dp)
                     .focusRequester(focusRequester)
                     .onFocusChanged { editTextHasFocus = it.hasFocus },
                 value = value,
@@ -94,7 +98,7 @@ internal fun HomeScreen(
         item {
             Row(
                 modifier = Modifier
-                    .padding(top = 16.dp)
+                    .padding(top = 16.dp, start = 20.dp, end = 20.dp)
                     .height(IntrinsicSize.Max),
                 horizontalArrangement = Arrangement.spacedBy(14.dp)
             ) {
@@ -120,24 +124,22 @@ internal fun HomeScreen(
 
         item {
             Text(
-                modifier = Modifier.padding(top = 24.dp),
+                modifier = Modifier.padding(top = 24.dp, start = 20.dp, end = 20.dp, bottom = 12.dp),
                 text = "Frutas",
                 style = MaterialTheme.typography.h3
             )
         }
 
-        itemsIndexed(fruits) { index, fruit ->
-            val paddingValues = if (index == 0) {
-                PaddingValues(top = 12.dp, bottom = 8.dp)
-            } else {
-                PaddingValues(vertical = 4.dp)
-            }
-
+        items(fruits) {fruit ->
             FruitVerticalItem(
-                modifier = Modifier.padding(paddingValues),
+                modifier = Modifier.padding(vertical = 4.dp, horizontal = 20.dp),
                 fruit = fruit,
                 onFavorite = { favorite -> onFavorite(fruit.copy(isFavorite = favorite)) }
             )
+        }
+
+        item {
+            Spacer(modifier = Modifier.padding(bottom = 24.dp))
         }
     }
 }

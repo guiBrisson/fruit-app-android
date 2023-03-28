@@ -30,160 +30,173 @@ fun NutrientsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    var selectedNutrient by remember {
-        mutableStateOf<Nutrient?>(null)
+    if (uiState.nutrients.isNotEmpty()) {
+        NutrientsScreen(
+            modifier = modifier,
+            nutrients = uiState.nutrients,
+            onHome = onHome,
+            onBack = onBack
+        )
+    } else {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            contentAlignment = Alignment.Center
+        ) {
+            EmptyListNutrient(
+                modifier = Modifier.padding(horizontal = 50.dp),
+                onReload = viewModel::insertNutrientsOnDb
+            )
+        }
     }
 
-    selectedNutrient?.let { nutrient ->
-        NutrientsScreen(
-            uiState = uiState,
-            onBack = onBack,
-            modifier = modifier,
-            selectedNutrient = nutrient,
-            onHome = onHome,
-            onNutrientClick = { n ->
-                viewModel.findNextNutrient(n)
-                selectedNutrient = n
-            }
-        )
-    }
 }
 
 @Composable
 internal fun NutrientsScreen(
     modifier: Modifier = Modifier,
-    uiState: NutrientsUiState,
-    selectedNutrient: Nutrient,
-    onNutrientClick: (Nutrient) -> Unit,
+    nutrients: List<Nutrient>,
     onHome: () -> Unit,
     onBack: () -> Unit
 ) {
-
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    Scaffold(scaffoldState = scaffoldState, drawerContent = {
-        NutrientsSideBar(
-            nutrientsList = uiState.nutrients,
-            selectedNutrient = selectedNutrient,
-            onItemClick = onNutrientClick
-        )
-    }) { scaffoldPadding ->
-        Column(
+    var selectedNutrient by remember { mutableStateOf(nutrients.first()) }
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        drawerContent = {
+            NutrientsSideBar(
+                nutrientsList = nutrients,
+                selectedNutrient = selectedNutrient,
+                onItemClick = { nutrient -> selectedNutrient = nutrient }
+            )
+        }
+    ) { scaffoldPadding ->
+
+        LazyColumn(
             modifier = modifier
                 .padding(scaffoldPadding)
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
         ) {
-            LazyColumn {
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        IconButton(onClick = {
-                            coroutineScope.launch {
-                                scaffoldState.drawerState.open()
-                            }
-                        }) {
-                            Icon(
-                                imageVector = Icons.Rounded.Menu,
-                                contentDescription = null,
-                                tint = MaterialTheme.colors.onBackground
-                            )
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(onClick = {
+                        coroutineScope.launch {
+                            scaffoldState.drawerState.open()
                         }
-                        IconButton(onClick = onBack) {
-                            Icon(
-                                imageVector = Icons.Rounded.Close,
-                                contentDescription = null,
-                                tint = MaterialTheme.colors.onBackground
-                            )
-                        }
-                    }
-                }
-                item {
-                    Row(
-                        modifier = Modifier.padding(20.dp, bottom = 0.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    }) {
                         Icon(
-                            imageVector = Icons.Rounded.Info,
+                            imageVector = Icons.Rounded.Menu,
                             contentDescription = null,
                             tint = MaterialTheme.colors.onBackground
                         )
-                        Text(
-                            modifier = Modifier.padding(start = 8.dp),
-                            text = selectedNutrient.name,
-                            color = MaterialTheme.colors.onBackground,
-                            fontWeight = FontWeight.Black,
-                            fontSize = 24.sp
+                    }
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.onBackground
                         )
                     }
-                    Text(
-                        modifier = Modifier.padding(start = 20.dp, top = 0.dp),
-                        text = selectedNutrient.subTitle,
-                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
-                    )
-                }
-                itemsIndexed(selectedNutrient.paragraphs) { index, paragraph ->
-                    val padding = if (index == 0) {
-                        PaddingValues(top = 24.dp, start = 20.dp, end = 20.dp)
-                    } else {
-                        PaddingValues(top = 8.dp, start = 20.dp, end = 20.dp)
-                    }
-                    Text(
-                        modifier = Modifier.padding(padding),
-                        text = paragraph,
-                        color = MaterialTheme.colors.onBackground
-                    )
                 }
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                AppButton(
-                    modifier = Modifier
-                        .width(200.dp)
-                        .padding(top = 40.dp, end = 20.dp, bottom = 30.dp),
-                    backgroundColor = MaterialTheme.colors.surface,
-                    accentColor = MaterialTheme.colors.primary,
-                    borderColor = MaterialTheme.colors.primary,
-                    trailingIcon = {
-                        if (uiState.nextNutrient == null) {
-                            Icon(
-                                imageVector = Icons.Rounded.Home,
-                                contentDescription = null
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Rounded.ArrowForward,
-                                contentDescription = null
-                            )
-                        }
-                    },
-                    text = {
-                        Column {
-                            val text = uiState.nextNutrient?.name ?: "Voltar"
-                            Text(text = text)
-                            uiState.nextNutrient?.let {
-                                Text(
-                                    text = "Próximo capítulo",
-                                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+            item {
+                Row(
+                    modifier = Modifier.padding(20.dp, bottom = 0.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Info,
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.onBackground
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 8.dp),
+                        text = selectedNutrient.name,
+                        color = MaterialTheme.colors.onBackground,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 24.sp
+                    )
+                }
+                Text(
+                    modifier = Modifier.padding(start = 20.dp, top = 0.dp),
+                    text = selectedNutrient.subTitle,
+                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                )
+            }
+            itemsIndexed(selectedNutrient.paragraphs) { index, paragraph ->
+                val padding = if (index == 0) {
+                    PaddingValues(top = 24.dp, start = 20.dp, end = 20.dp)
+                } else {
+                    PaddingValues(top = 8.dp, start = 20.dp, end = 20.dp)
+                }
+                Text(
+                    modifier = Modifier.padding(padding),
+                    text = paragraph,
+                    color = MaterialTheme.colors.onBackground
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    val selectedIndex = nutrients.indexOf(selectedNutrient)
+
+                    val nextNutrient: Nutrient? =
+                        if (selectedIndex != nutrients.lastIndex) {
+                            nutrients[selectedIndex + 1]
+                        } else null
+
+                    AppButton(
+                        modifier = Modifier
+                            .width(200.dp)
+                            .padding(top = 40.dp, end = 20.dp, bottom = 30.dp),
+                        backgroundColor = MaterialTheme.colors.surface,
+                        accentColor = MaterialTheme.colors.primary,
+                        borderColor = MaterialTheme.colors.primary,
+                        trailingIcon = {
+                            if (nextNutrient == null) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Home,
+                                    contentDescription = null
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Rounded.ArrowForward,
+                                    contentDescription = null
                                 )
                             }
+                        },
+                        text = {
+                            Column {
+                                val text = nextNutrient?.name ?: "Voltar"
+                                Text(text = text)
+                                nextNutrient?.let {
+                                    Text(
+                                        text = "Próximo capítulo",
+                                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                                    )
+                                }
+                            }
+                        },
+                        onClick = {
+                            if (nextNutrient == null) {
+                                onHome()
+                            } else {
+                                selectedNutrient = nextNutrient
+                            }
                         }
-                    },
-                    onClick = {
-                        if (uiState.nextNutrient == null) {
-                            onHome()
-                        } else {
-                            onNutrientClick(uiState.nextNutrient)
-                        }
-                    }
-                )
+                    )
+                }
             }
         }
     }
@@ -191,7 +204,7 @@ internal fun NutrientsScreen(
 
 @Preview(showBackground = true, name = "Light", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewNutrientsScreenDark() {
+fun PreviewNutrientsScreen() {
     val nutrients = listOf(
         Nutrient(
             id = 1,
@@ -216,10 +229,9 @@ fun PreviewNutrientsScreenDark() {
     )
     NutrientsTheme {
         NutrientsScreen(
-            selectedNutrient = nutrients[0],
             onBack = { },
-            uiState = NutrientsUiState(nutrients = nutrients),
+            nutrients = nutrients,
             onHome = { },
-            onNutrientClick = {})
+        )
     }
 }

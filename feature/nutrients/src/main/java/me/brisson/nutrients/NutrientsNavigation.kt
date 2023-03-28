@@ -19,7 +19,10 @@ fun NavGraphBuilder.nutrientsNavigation(navController: NavController) {
     ) {
         composable("detail") {
             NutrientsTheme {
-                NutrientsScreen(onBack = { }, onHome = {})
+                NutrientsScreen(
+                    onBack = { navController.navigateUp() },
+                    onHome = { navController.popBackStack(route = "nutrient", inclusive = true) }
+                )
             }
         }
     }
