@@ -107,6 +107,10 @@ internal fun CropSeasonScreen(
 
             }
         }
+
+        item(span = { GridItemSpan(spanCount) }) {
+            Spacer(modifier = Modifier.padding(bottom = 24.dp))
+        }
     }
 }
 

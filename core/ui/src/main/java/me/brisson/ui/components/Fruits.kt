@@ -55,7 +55,7 @@ fun FruitVerticalItem(
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .width(110.dp)
+                        .width(120.dp)
                         .drawBehind {
                             val x = size.width
                             val maxY = size.height
@@ -91,30 +91,25 @@ fun FruitVerticalItem(
                     text = fruit.summary,
                     style = MaterialTheme.typography.subtitle2,
                     color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-                    maxLines = 2,
+                    maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
             }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            val painter = if (fruit.isFavorite) {
-                painterResource(id = R.drawable.ic_heart_filled)
-            } else {
-                painterResource(id = R.drawable.ic_heart)
-            }
-
-
-            IconButton(
-                modifier = Modifier.padding(top = 2.dp, end = 2.dp),
-                onClick = { onFavorite(!fruit.isFavorite) }
-            ) {
-                Icon(
-                    painter = painter,
-                    contentDescription = null,
-                    tint= Color.Unspecified
-                )
-            }
+        }
+        val painter = if (fruit.isFavorite) {
+            painterResource(id = R.drawable.ic_heart_filled)
+        } else {
+            painterResource(id = R.drawable.ic_heart)
+        }
+        IconButton(
+            modifier = Modifier.padding(top = 2.dp, end = 22.dp).align(Alignment.TopEnd),
+            onClick = { onFavorite(!fruit.isFavorite) }
+        ) {
+            Icon(
+                painter = painter,
+                contentDescription = null,
+                tint= Color.Unspecified
+            )
         }
     }
 }

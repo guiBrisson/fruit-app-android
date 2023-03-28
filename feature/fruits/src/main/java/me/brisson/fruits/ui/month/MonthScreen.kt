@@ -2,10 +2,7 @@ package me.brisson.fruits.ui.month
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -98,6 +95,10 @@ internal fun MonthScreen(
                         onFavorite = { favorite -> onFavorite(fruit.copy(isFavorite = favorite)) }
                     )
                 }
+            }
+
+            item {
+                Spacer(modifier = Modifier.padding(bottom = 24.dp))
             }
         }
     }
