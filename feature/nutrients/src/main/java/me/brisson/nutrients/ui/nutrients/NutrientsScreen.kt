@@ -34,6 +34,8 @@ fun NutrientsScreen(
         NutrientsScreen(
             modifier = modifier,
             nutrients = uiState.nutrients,
+            lastSelectedNutrient = viewModel.getLastOpenedNutrient(),
+            onSaveLastNutrient = { id -> viewModel.saveCurrentNutrient(id) },
             onHome = onHome,
             onBack = onBack
         )
@@ -57,13 +59,19 @@ fun NutrientsScreen(
 internal fun NutrientsScreen(
     modifier: Modifier = Modifier,
     nutrients: List<Nutrient>,
+    lastSelectedNutrient: Nutrient? = null,
+    onSaveLastNutrient: (nutrientId: Long) -> Unit,
     onHome: () -> Unit,
     onBack: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    var selectedNutrient by remember { mutableStateOf(nutrients.first()) }
+    var selectedNutrient by remember {
+        mutableStateOf(lastSelectedNutrient ?: nutrients.first())
+    }
+
+    onSaveLastNutrient(selectedNutrient.id)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -231,6 +239,7 @@ fun PreviewNutrientsScreen() {
         NutrientsScreen(
             onBack = { },
             nutrients = nutrients,
+            onSaveLastNutrient = { },
             onHome = { },
         )
     }
