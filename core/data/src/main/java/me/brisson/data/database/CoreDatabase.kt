@@ -2,6 +2,7 @@ package me.brisson.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import me.brisson.data.database.dao.FruitDao
 import me.brisson.data.database.dao.FruitMonthDao
 import me.brisson.data.database.dao.MonthDao
@@ -17,6 +18,7 @@ import me.brisson.data.database.entity.MonthEntity
     ],
     version = 1
 )
+@TypeConverters(Converters::class)
 abstract class CoreDatabase : RoomDatabase() {
     abstract fun fruitDao(): FruitDao
     abstract fun monthDao(): MonthDao

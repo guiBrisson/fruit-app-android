@@ -23,6 +23,7 @@ data class FruitWithMonths(
             imageUrl = fruitEntity.imageUrl,
             summary = fruitEntity.summary,
             isFavorite = fruitEntity.isFavorite,
+            paragraphs = fruitEntity.paragraphs,
             months = monthEntity.map { it.toMonth() })
     }
 }
