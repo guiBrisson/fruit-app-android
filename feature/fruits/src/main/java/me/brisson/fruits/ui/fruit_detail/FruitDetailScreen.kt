@@ -3,6 +3,7 @@ package me.brisson.fruits.ui.fruit_detail
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -58,84 +59,111 @@ internal fun FruitDetailScreen(
     onFavorite: (favorite: Boolean) -> Unit,
     onBack: () -> Unit
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBackIosNew,
-                    contentDescription = null
-                )
-            }
-            IconButton(onClick = { onFavorite(!fruit.isFavorite) }) {
-                if (fruit.isFavorite) {
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                IconButton(onClick = onBack) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_heart_filled),
-                        contentDescription = null,
-                        tint = Color.Unspecified
+                        imageVector = Icons.Rounded.ArrowBackIosNew,
+                        contentDescription = null
                     )
+                }
+                IconButton(onClick = { onFavorite(!fruit.isFavorite) }) {
+                    if (fruit.isFavorite) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_heart_filled),
+                            contentDescription = null,
+                            tint = Color.Unspecified
+                        )
 
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_heart),
-                        contentDescription = null,
-                    )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_heart),
+                            contentDescription = null,
+                        )
+                    }
                 }
             }
         }
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            text = fruit.name,
-            style = MaterialTheme.typography.h1
-        )
 
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            text = fruit.summary,
-            style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
-        )
-
-        fruit.months?.let { months ->
+        item {
             Text(
-                modifier = Modifier.padding(start = 20.dp, top = 24.dp),
-                text = "Meses de safra",
-                fontFamily = gothicA1,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+                modifier = Modifier.padding(horizontal = 20.dp),
+                text = fruit.name,
+                style = MaterialTheme.typography.h1
             )
+        }
 
-            LazyRow(modifier = Modifier.padding(vertical = 12.dp)) {
-                itemsIndexed(months) { index, month ->
-                    val padding = when (index) {
-                        0 -> PaddingValues(start = 20.dp, end = 4.dp)
-                        months.lastIndex -> PaddingValues(start = 4.dp, end = 20.dp)
-                        else -> PaddingValues(horizontal = 4.dp)
+        item {
+            Text(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                text = fruit.summary,
+                style = MaterialTheme.typography.subtitle1,
+                color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+            )
+        }
 
-                    }
+        item {
+            fruit.months?.let { months ->
+                Text(
+                    modifier = Modifier.padding(start = 20.dp, top = 24.dp),
+                    text = "Meses de safra",
+                    fontFamily = gothicA1,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
 
-                    Box(
-                        modifier = Modifier
-                            .padding(padding)
-                            .border(
-                                width = 1.dp,
-                                color = Color.Black,
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .padding(horizontal = 12.dp, vertical = 1.dp)
-                            .clip(CircleShape)
-                    ) {
-                        Text(text = month.name, fontWeight = FontWeight.Medium)
+                LazyRow(modifier = Modifier.padding(vertical = 12.dp)) {
+                    itemsIndexed(months) { index, month ->
+                        val padding = when (index) {
+                            0 -> PaddingValues(start = 20.dp, end = 4.dp)
+                            months.lastIndex -> PaddingValues(start = 4.dp, end = 20.dp)
+                            else -> PaddingValues(horizontal = 4.dp)
+
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .padding(padding)
+                                .border(
+                                    width = 1.dp,
+                                    color = Color.Black,
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .padding(horizontal = 12.dp, vertical = 1.dp)
+                                .clip(CircleShape)
+                        ) {
+                            Text(text = month.name, fontWeight = FontWeight.Medium)
+                        }
                     }
                 }
+            }
+        }
+
+        if (fruit.paragraphs.isNotEmpty()) {
+            itemsIndexed(fruit.paragraphs) { index, paragraph ->
+                val padding = when (index) {
+                    0 -> PaddingValues(start = 20.dp, end = 20.dp, top = 12.dp)
+                    fruit.paragraphs.lastIndex -> PaddingValues(horizontal = 20.dp, vertical = 8.dp)
+                    else -> PaddingValues(start = 20.dp, end = 20.dp, top = 12.dp)
+
+                }
+
+                Text(
+                    modifier = Modifier.padding(padding),
+                    text = paragraph,
+                    fontFamily = gothicA1,
+                    fontSize = 14.sp
+                )
             }
         }
 
