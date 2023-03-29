@@ -4,6 +4,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.composable
 import me.brisson.fruits.ui.crop_season.CropSeasonScreen
 import me.brisson.fruits.ui.fruit.FruitScreen
+import me.brisson.fruits.ui.fruit_detail.FruitDetailScreen
 import me.brisson.fruits.ui.home.HomeScreen
 import me.brisson.fruits.ui.month.MonthScreen
 import me.brisson.fruits.ui.nutrient.NutrientScreen
@@ -16,6 +17,7 @@ object FruitsNavigationScreens {
     const val CROP_SCREEN = "crop"
     const val MONTH_SCREEN = "month"
     const val FRUIT_SCREEN = "fruit"
+    const val FRUIT_DETAIL_SCREEN = "fruit_detail"
 }
 
 object FruitsNavigationArgs {
@@ -32,6 +34,8 @@ object FruitsNavigationRoutes {
         "${FruitsNavigationScreens.MONTH_SCREEN}/{${FruitsNavigationArgs.MONTH_NAME_ARGS}}"
     const val FRUIT_ROUTE =
         "${FruitsNavigationScreens.FRUIT_SCREEN}/{${FruitsNavigationArgs.FRUIT_ID_ARGS}}"
+    const val FRUIT_DETAIL_ROUTE =
+        "${FruitsNavigationScreens.FRUIT_DETAIL_SCREEN}/{${FruitsNavigationArgs.FRUIT_ID_ARGS}}"
 }
 
 fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
@@ -91,9 +95,24 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
             })
         ) {
             FruitScreen(
+                onSeeMore = { fruitId ->
+                    val route = "${FruitsNavigationScreens.FRUIT_DETAIL_SCREEN}/$fruitId"
+                    navController.navigate(route)
+                },
                 onBack = { navController.navigateUp() }
             )
-
         }
+
+        composable(
+            route = FruitsNavigationRoutes.FRUIT_DETAIL_ROUTE,
+            arguments = listOf(navArgument(FruitsNavigationArgs.FRUIT_ID_ARGS) {
+                type = NavType.LongType
+            })
+        ) {
+            FruitDetailScreen(
+                onBack = { navController.navigateUp() }
+            )
+        }
+
     }
 }

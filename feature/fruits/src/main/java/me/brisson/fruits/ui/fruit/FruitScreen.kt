@@ -28,6 +28,7 @@ import me.brisson.ui.theme.FruitAppTheme
 fun FruitScreen(
     modifier: Modifier = Modifier,
     viewModel: FruitViewModel = hiltViewModel(),
+    onSeeMore: (fruitId: Long) -> Unit,
     onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -37,6 +38,7 @@ fun FruitScreen(
             modifier = modifier,
             fruit = fruit,
             onFavorite = viewModel::favoriteFruit,
+            onSeeMore = onSeeMore,
             onBack = onBack
         )
     }
@@ -48,6 +50,7 @@ internal fun FruitScreen(
     modifier: Modifier = Modifier,
     fruit: Fruit,
     onFavorite: (favorite: Boolean) -> Unit,
+    onSeeMore: (fruitId: Long) -> Unit,
     onBack: () -> Unit,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -128,7 +131,7 @@ internal fun FruitScreen(
                         text = "Mais sobre ${fruit.name}",
                         style = MaterialTheme.typography.button
                     )
-                }, onClick = { /*TODO*/ }
+                }, onClick = { onSeeMore(fruit.id) }
             )
         }
 
@@ -139,6 +142,11 @@ internal fun FruitScreen(
 @Composable
 fun PreviewFruitScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: List<Fruit>) {
     FruitAppTheme {
-        FruitScreen(fruit = fruits.first(), onFavorite = { }, onBack = { })
+        FruitScreen(
+            fruit = fruits.first(),
+            onSeeMore = { },
+            onFavorite = { },
+            onBack = { }
+        )
     }
 }
