@@ -1,7 +1,12 @@
 package me.brisson.fruits.ui.fruit_detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -12,16 +17,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.domain.model.Fruit
 import me.brisson.ui.R
 import me.brisson.ui.preview_provider.FruitPreviewProvider
 import me.brisson.ui.theme.FruitAppTheme
+import me.brisson.ui.theme.gothicA1
 
 @Composable
 fun FruitDetailScreen(
@@ -49,7 +58,11 @@ internal fun FruitDetailScreen(
     onFavorite: (favorite: Boolean) -> Unit,
     onBack: () -> Unit
 ) {
-    Column(modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -90,6 +103,41 @@ internal fun FruitDetailScreen(
             style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
         )
+
+        fruit.months?.let { months ->
+            Text(
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp),
+                text = "Meses de safra",
+                fontFamily = gothicA1,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+            )
+
+            LazyRow(modifier = Modifier.padding(vertical = 12.dp)) {
+                itemsIndexed(months) { index, month ->
+                    val padding = when (index) {
+                        0 -> PaddingValues(start = 20.dp, end = 4.dp)
+                        months.lastIndex -> PaddingValues(start = 4.dp, end = 20.dp)
+                        else -> PaddingValues(horizontal = 4.dp)
+
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .padding(padding)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .padding(horizontal = 12.dp, vertical = 1.dp)
+                            .clip(CircleShape)
+                    ) {
+                        Text(text = month.name, fontWeight = FontWeight.Medium)
+                    }
+                }
+            }
+        }
 
     }
 }
