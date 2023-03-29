@@ -34,6 +34,7 @@ import me.brisson.ui.theme.gothicA1
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
+    onFruit: (fruitDd: Long) -> Unit,
     onNutrients: () -> Unit,
     onCrops: () -> Unit,
 ) {
@@ -43,6 +44,7 @@ fun HomeScreen(
         modifier = modifier,
         greeting = uiState.greetings,
         fruits = uiState.fruits,
+        onFruit = onFruit,
         onNutrients = onNutrients,
         onCrops = onCrops,
         onFavorite = { fruit -> viewModel.updateFruit(fruit) }
@@ -55,6 +57,7 @@ internal fun HomeScreen(
     modifier: Modifier = Modifier,
     greeting: String,
     fruits: List<Fruit>,
+    onFruit: (fruitDd: Long) -> Unit,
     onNutrients: () -> Unit,
     onCrops: () -> Unit,
     onFavorite: (fruit: Fruit) -> Unit,
@@ -139,7 +142,9 @@ internal fun HomeScreen(
 
         items(fruits) { fruit ->
             FruitVerticalItem(
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 20.dp),
+                modifier = Modifier
+                    .padding(vertical = 4.dp, horizontal = 20.dp)
+                    .clickable { onFruit(fruit.id) },
                 fruit = fruit,
                 onFavorite = { favorite -> onFavorite(fruit.copy(isFavorite = favorite)) }
             )
@@ -158,8 +163,10 @@ fun PreviewHomeScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: Lis
         HomeScreen(
             greeting = "Bom dia",
             fruits = fruits,
+            onFruit = { },
             onNutrients = { },
             onCrops = { },
-            onFavorite = { })
+            onFavorite = { }
+        )
     }
 }
