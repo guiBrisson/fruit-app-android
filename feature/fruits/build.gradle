@@ -52,6 +52,7 @@ dependencies {
     implementation Dependencies.composeUi
     implementation Dependencies.composeUiPreviewTool
     implementation Dependencies.composeIconsExtended
+    implementation Dependencies.coilCompose
 
     //Hilt
     implementation Dependencies.daggerHilt
