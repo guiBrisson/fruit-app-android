@@ -13,6 +13,7 @@ data class FruitEntity(
     val imageUrl: String?,
     val summary: String,
     val isFavorite: Boolean = false,
+    val paragraphs: List<String>
 ) {
     fun toFruit(): Fruit {
         return Fruit(
@@ -20,7 +21,8 @@ data class FruitEntity(
             name = name,
             imageUrl = imageUrl,
             summary = summary,
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            paragraphs = paragraphs,
         )
     }
 }
@@ -31,6 +33,7 @@ fun Fruit.toFruitEntity(): FruitEntity {
         name = name,
         imageUrl = imageUrl ,
         summary = summary,
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+        paragraphs = paragraphs,
     )
 }
