@@ -31,7 +31,8 @@ class FruitDetailViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(FruitDetailUiState())
     val uiState: StateFlow<FruitDetailUiState> = combine(_fruit, _uiState){ fruit, state ->
-        state.copy(loading = false, fruit = fruit)
+        val monthsSorted = fruit?.months?.sortedBy { it.number }
+        state.copy(loading = false, fruit = fruit?.copy(months = monthsSorted))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _uiState.value)
 
     fun favoriteFruit(favorite: Boolean) {

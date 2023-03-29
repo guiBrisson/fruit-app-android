@@ -1,13 +1,10 @@
 package me.brisson.fruits.ui.fruit_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -18,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -122,30 +119,34 @@ internal fun FruitDetailScreen(
                     fontWeight = FontWeight.SemiBold
                 )
 
-                LazyRow(modifier = Modifier.padding(vertical = 12.dp)) {
-                    itemsIndexed(months) { index, month ->
-                        val padding = when (index) {
-                            0 -> PaddingValues(start = 20.dp, end = 4.dp)
-                            months.lastIndex -> PaddingValues(start = 4.dp, end = 20.dp)
-                            else -> PaddingValues(horizontal = 4.dp)
+                if (months.size == 12) {
+                    val periwinkle = Color(0xFFC9DDFF)
+                    val plum = Color(0xFFECB0E1)
+                    val aquamarine = Color(0xFF2CF6B3)
 
-                        }
+                    val colors =
+                        Brush.linearGradient(listOf(periwinkle, plum, aquamarine))
+                    MonthTag(
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+                        text = "Ano todo!",
+                        textColor = colors
+                    )
 
-                        Box(
-                            modifier = Modifier
-                                .padding(padding)
-                                .border(
-                                    width = 1.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(8.dp)
-                                )
-                                .padding(horizontal = 12.dp, vertical = 1.dp)
-                                .clip(CircleShape)
-                        ) {
-                            Text(text = month.name, fontWeight = FontWeight.Medium)
+                } else {
+                    LazyRow(modifier = Modifier.padding(vertical = 12.dp)) {
+                        itemsIndexed(months) { index, month ->
+                            val padding = when (index) {
+                                0 -> PaddingValues(start = 20.dp, end = 4.dp)
+                                months.lastIndex -> PaddingValues(start = 4.dp, end = 20.dp)
+                                else -> PaddingValues(horizontal = 4.dp)
+
+                            }
+
+                            MonthTag(modifier = Modifier.padding(padding), text = month.name)
                         }
                     }
                 }
+
             }
         }
 
@@ -153,8 +154,13 @@ internal fun FruitDetailScreen(
             itemsIndexed(fruit.paragraphs) { index, paragraph ->
                 val padding = when (index) {
                     0 -> PaddingValues(start = 20.dp, end = 20.dp, top = 12.dp)
-                    fruit.paragraphs.lastIndex -> PaddingValues(horizontal = 20.dp, vertical = 8.dp)
-                    else -> PaddingValues(start = 20.dp, end = 20.dp, top = 12.dp)
+                    fruit.paragraphs.lastIndex -> PaddingValues(
+                        start = 20.dp,
+                        end = 20.dp,
+                        top = 4.dp,
+                        bottom = 20.dp
+                    )
+                    else -> PaddingValues(start = 20.dp, end = 20.dp, top = 4.dp)
 
                 }
 
@@ -162,7 +168,7 @@ internal fun FruitDetailScreen(
                     modifier = Modifier.padding(padding),
                     text = paragraph,
                     fontFamily = gothicA1,
-                    fontSize = 14.sp
+                    fontSize = 16.sp
                 )
             }
         }
@@ -175,7 +181,7 @@ internal fun FruitDetailScreen(
 fun PreviewFruitDetailScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: List<Fruit>) {
     FruitAppTheme {
         FruitDetailScreen(
-            fruit = fruits.first(),
+            fruit = fruits[2],
             onFavorite = { },
             onBack = { }
         )
