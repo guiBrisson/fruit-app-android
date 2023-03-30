@@ -2,11 +2,13 @@ package com.example.onboarding.ui.onboarding
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +26,11 @@ import me.brisson.ui.components.SearchBar
 import me.brisson.ui.theme.FruitAppTheme
 
 @Composable
-fun FirstComponent(modifier: Modifier = Modifier) {
+fun FirstComponent(
+    modifier: Modifier = Modifier,
+    onSkip: () -> Unit,
+    onContinue: () -> Unit
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -49,17 +55,19 @@ fun FirstComponent(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                modifier = Modifier.padding(start = 48.dp),
-                text = "Pular",
-                color = MaterialTheme.colors.onBackground,
-                style = MaterialTheme.typography.button
-            )
+            TextButton(modifier = Modifier.padding(start = 48.dp), onClick = onSkip) {
+                Text(
+                    text = "Pular",
+                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.button
+                )
+            }
             val accent = Color(0XFFD253E7)
             AppButton(
                 modifier = Modifier
                     .width(200.dp)
-                    .padding(end = 22.dp),
+                    .padding(end = 22.dp)
+                    .clickable { onContinue() },
                 backgroundColor = MaterialTheme.colors.background,
                 borderColor = Color.Black,
                 accentColor = accent,
@@ -75,8 +83,11 @@ fun FirstComponent(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SecondComponent(modifier: Modifier = Modifier) {
-
+fun SecondComponent(
+    modifier: Modifier = Modifier,
+    onSkip: () -> Unit,
+    onEnter: (userName: String) -> Unit
+) {
     val focusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
     var editTextHasFocus by remember { mutableStateOf(false) }
@@ -120,16 +131,18 @@ fun SecondComponent(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                modifier = Modifier.padding(start = 28.dp),
-                text = "Pular",
-                color = MaterialTheme.colors.onBackground,
-                style = MaterialTheme.typography.button
-            )
+            TextButton(modifier = Modifier.padding(start = 28.dp), onClick = onSkip) {
+                Text(
+                    text = "Pular",
+                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.button
+                )
+            }
             val accent = Color(0XFFD253E7)
             AppButton(
                 modifier = Modifier
-                    .width(200.dp),
+                    .width(200.dp)
+                    .clickable { onEnter(value) },
                 backgroundColor = MaterialTheme.colors.background,
                 borderColor = Color.Black,
                 accentColor = accent,
@@ -148,7 +161,7 @@ fun SecondComponent(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewFirstComponent() {
     FruitAppTheme {
-        FirstComponent()
+        FirstComponent(onSkip = {}, onContinue = {})
     }
 }
 
@@ -156,6 +169,6 @@ fun PreviewFirstComponent() {
 @Composable
 fun PreviewSecondComponent() {
     FruitAppTheme {
-        SecondComponent()
+        SecondComponent(onSkip = {}, onEnter = {})
     }
 }

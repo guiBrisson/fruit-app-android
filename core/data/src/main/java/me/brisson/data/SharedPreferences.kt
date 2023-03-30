@@ -12,6 +12,9 @@ class SharedPreferences(context: Context) :SharedPref {
     override fun setSelectedNutrientId(id: Long) = putLong(selectedNutrientId, id)
     override fun selectedNutrientId(): Long = getLong(selectedNutrientId)
 
+    override fun setUserName(name: String) = putString(userName, name)
+    override fun getUserName(): String? = getString(userName)
+
 
     // private getters and setters functions
 
@@ -37,6 +40,7 @@ class SharedPreferences(context: Context) :SharedPref {
         private const val userSetting = "user_settings"
         private const val hasLoggedBefore = "logged_before"
         private const val selectedNutrientId = "selected_nutrient_id"
+        private const val userName = "user_name"
     }
 
 }
