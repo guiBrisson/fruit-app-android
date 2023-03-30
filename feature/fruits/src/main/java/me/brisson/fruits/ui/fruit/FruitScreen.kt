@@ -1,5 +1,6 @@
 package me.brisson.fruits.ui.fruit
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -29,6 +30,7 @@ fun FruitScreen(
     modifier: Modifier = Modifier,
     viewModel: FruitViewModel = hiltViewModel(),
     onSeeMore: (fruitId: Long) -> Unit,
+    onRecipe: (recipeId: Long) -> Unit,
     onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -39,6 +41,7 @@ fun FruitScreen(
             fruit = fruit,
             onFavorite = viewModel::favoriteFruit,
             onSeeMore = onSeeMore,
+            onRecipe = onRecipe,
             onBack = onBack
         )
     }
@@ -51,6 +54,7 @@ internal fun FruitScreen(
     fruit: Fruit,
     onFavorite: (favorite: Boolean) -> Unit,
     onSeeMore: (fruitId: Long) -> Unit,
+    onRecipe: (recipeId: Long) -> Unit,
     onBack: () -> Unit,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -111,7 +115,8 @@ internal fun FruitScreen(
         )
 
         Text(
-            modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 12.dp),
+            modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 12.dp)
+                .clickable { onRecipe(-1) }, // todo: fazer a navegação direito
             text = "Receitas",
             style = MaterialTheme.typography.h3
         )
@@ -146,7 +151,8 @@ fun PreviewFruitScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: Li
             fruit = fruits.first(),
             onSeeMore = { },
             onFavorite = { },
-            onBack = { }
+            onRecipe = { },
+            onBack = { },
         )
     }
 }
