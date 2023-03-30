@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'me.brisson.fruits'
+    namespace 'me.brisson.recipes'
     compileSdk 33
 
     defaultConfig {
@@ -40,20 +40,13 @@ android {
 
 dependencies {
     implementation project(path: ':core:ui')
-    implementation project(path: ':core:domain')
-    implementation project(path: ':feature:nutrients')
-    implementation project(path: ':feature:recipes')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
     implementation Dependencies.androidxActivityCompose
-    implementation Dependencies.androidxMaterial
-
-    //Compose
     implementation Dependencies.composeUi
     implementation Dependencies.composeUiPreviewTool
-    implementation Dependencies.composeIconsExtended
-    implementation Dependencies.coilCompose
+    implementation Dependencies.androidxMaterial
 
     //Hilt
     implementation Dependencies.daggerHilt

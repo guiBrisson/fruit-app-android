@@ -10,6 +10,8 @@ import me.brisson.fruits.ui.month.MonthScreen
 import me.brisson.fruits.ui.nutrient.NutrientScreen
 import me.brisson.nutrients.NutrientsNavigationRoutes
 import me.brisson.nutrients.nutrientsNavigation
+import me.brisson.recipes.RecipeNavigationRoutes
+import me.brisson.recipes.recipeNavigation
 
 object FruitsNavigationScreens {
     const val HOME_SCREEN = "home"
@@ -44,6 +46,7 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
         route = FruitsNavigationRoutes.FRUITS_ROUTE
     ) {
         nutrientsNavigation(navController)
+        recipeNavigation(navController)
 
         composable(route = FruitsNavigationRoutes.HOME_ROUTE) {
             HomeScreen(
@@ -98,6 +101,10 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
                 onSeeMore = { fruitId ->
                     val route = "${FruitsNavigationScreens.FRUIT_DETAIL_SCREEN}/$fruitId"
                     navController.navigate(route)
+                },
+                onRecipe = { recipeId ->
+                    navController.navigate(RecipeNavigationRoutes.RECIPE_ROUTE)
+
                 },
                 onBack = { navController.navigateUp() }
             )

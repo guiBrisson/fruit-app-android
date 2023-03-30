@@ -9,12 +9,12 @@ import me.brisson.nutrients.ui.theme.NutrientsTheme
 
 object NutrientsNavigationRoutes {
     const val NUTRIENTS_ROUTE = "nutrients"
-    const val NUTRIENTS_DETAIL = "detail"
+    const val NUTRIENTS_DETAIL_ROUTE = "nutrients_detail"
 }
 
 fun NavGraphBuilder.nutrientsNavigation(navController: NavController) {
     navigation(
-        startDestination = NutrientsNavigationRoutes.NUTRIENTS_DETAIL,
+        startDestination = NutrientsNavigationRoutes.NUTRIENTS_DETAIL_ROUTE,
         route = NutrientsNavigationRoutes.NUTRIENTS_ROUTE
     ) {
         composable("detail") {
