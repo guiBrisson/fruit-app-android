@@ -1,4 +1,4 @@
-package com.example.onboarding.ui.onboarding
+package me.brisson.onboard.ui.onboard
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
@@ -17,13 +17,13 @@ import coil.request.ImageRequest
 import me.brisson.ui.theme.FruitAppTheme
 
 @Composable
-fun OnBoardingScreen(
+fun OnboardScreen(
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel(),
     onLoading: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    OnBoardingScreen(
+    OnboardScreen(
         modifier = modifier,
         component = uiState.component,
         onContinue = viewModel::moveToSecondComponent,
@@ -36,7 +36,7 @@ fun OnBoardingScreen(
 }
 
 @Composable
-internal fun OnBoardingScreen(
+internal fun OnboardScreen(
     modifier: Modifier = Modifier,
     component: OnBoardingComponent,
     onContinue: () -> Unit,
@@ -79,7 +79,7 @@ internal fun OnBoardingScreen(
 @Composable
 fun PreviewOnBoardingScreen() {
     FruitAppTheme {
-        OnBoardingScreen(
+        OnboardScreen(
             component = OnBoardingComponent.FIRST_COMPONENT,
             onContinue = {},
             onLoading = {},

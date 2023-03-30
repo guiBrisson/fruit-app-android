@@ -1,8 +1,7 @@
-package com.example.onboarding.ui.onboarding
+package me.brisson.onboard.ui.onboard
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -66,11 +65,11 @@ fun FirstComponent(
             AppButton(
                 modifier = Modifier
                     .width(200.dp)
-                    .padding(end = 22.dp)
-                    .clickable { onContinue() },
+                    .padding(end = 22.dp),
                 backgroundColor = MaterialTheme.colors.background,
                 borderColor = Color.Black,
                 accentColor = accent,
+                onClick = onContinue,
                 text = {
                     Text(
                         text = "Continuar",
@@ -140,12 +139,11 @@ fun SecondComponent(
             }
             val accent = Color(0XFFD253E7)
             AppButton(
-                modifier = Modifier
-                    .width(200.dp)
-                    .clickable { onEnter(value) },
+                modifier = Modifier.width(200.dp),
                 backgroundColor = MaterialTheme.colors.background,
                 borderColor = Color.Black,
                 accentColor = accent,
+                onClick = { onEnter(value) },
                 text = {
                     Text(
                         text = "Entrar",

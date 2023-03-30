@@ -1,4 +1,4 @@
-package com.example.onboarding.ui.onboarding
+package me.brisson.onboard.ui.onboard
 
 data class OnBoardingUiState(
     val component: OnBoardingComponent = OnBoardingComponent.FIRST_COMPONENT

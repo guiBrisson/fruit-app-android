@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import me.brisson.onboard.ui.onboardNavigation
 import me.brisson.fruits.ui.FruitsNavigationRoutes
 import me.brisson.fruits.ui.fruitsNavigation
 
@@ -12,13 +13,15 @@ import me.brisson.fruits.ui.fruitsNavigation
 fun MainNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = FruitsNavigationRoutes.FRUITS_ROUTE
+    startDestination: String = FruitsNavigationRoutes.FRUITS_ROUTE,
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
+
+        onboardNavigation(navController)
         fruitsNavigation(navController)
     }
 

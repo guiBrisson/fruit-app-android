@@ -1,4 +1,4 @@
-package com.example.onboarding.ui.onboarding
+package me.brisson.onboard.ui.onboard
 
 
 import androidx.lifecycle.ViewModel

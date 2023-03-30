@@ -49,9 +49,11 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core:data')
     implementation project(path: ':core:ui')
+    implementation project(path: ':core:domain')
+    implementation project(path: ':core:data')
     implementation project(path: ':feature:fruits')
+    implementation project(path: ':feature:onboard')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime

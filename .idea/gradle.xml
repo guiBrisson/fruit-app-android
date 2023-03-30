@@ -20,7 +20,7 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/fruits" />
             <option value="$PROJECT_DIR$/feature/nutrients" />
-            <option value="$PROJECT_DIR$/feature/onboarding" />
+            <option value="$PROJECT_DIR$/feature/onboard" />
           </set>
         </option>
       </GradleProjectSettings>
