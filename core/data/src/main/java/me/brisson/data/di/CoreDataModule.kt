@@ -10,12 +10,12 @@ import dagger.hilt.components.SingletonComponent
 import me.brisson.data.GreetingsImpl
 import me.brisson.data.SharedPreferences
 import me.brisson.data.database.CoreDatabase
-import me.brisson.data.database.dao.FruitDao
-import me.brisson.data.database.dao.FruitMonthDao
-import me.brisson.data.database.dao.MonthDao
+import me.brisson.data.database.dao.*
 import me.brisson.data.database.repository.FruitMonthRepositoryImpl
+import me.brisson.data.database.repository.RecipeRepositoryImpl
 import me.brisson.domain.repository.FruitMonthRepository
 import me.brisson.domain.repository.Greetings
+import me.brisson.domain.repository.RecipeRepository
 import me.brisson.domain.repository.SharedPref
 import javax.inject.Singleton
 
@@ -53,13 +53,25 @@ class CoreDataModule {
         coreDatabase.fruitMonthDao()
 
     @Provides
+    fun providesRecipeDao(coreDatabase: CoreDatabase): RecipeDao = coreDatabase.recipeDao()
+
+    @Provides
+    fun providesFruitRecipeDao(coreDatabase: CoreDatabase): FruitRecipeDao =
+        coreDatabase.fruitRecipeDao()
+
+    @Provides
     @Singleton
     fun providesFruitMonthRepository(
         fruitDao: FruitDao,
         monthDao: MonthDao,
         fruitMonthDao: FruitMonthDao
-    ): FruitMonthRepository {
-        return FruitMonthRepositoryImpl(fruitDao, monthDao, fruitMonthDao)
-    }
+    ): FruitMonthRepository = FruitMonthRepositoryImpl(fruitDao, monthDao, fruitMonthDao)
 
+
+    @Provides
+    @Singleton
+    fun providesRecipeRepository(
+        recipeDao: RecipeDao,
+        fruitRecipeDao: FruitRecipeDao,
+    ): RecipeRepository = RecipeRepositoryImpl(recipeDao, fruitRecipeDao)
 }

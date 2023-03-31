@@ -3,7 +3,6 @@ package me.brisson.domain
 import me.brisson.domain.model.Fruit
 import me.brisson.domain.model.Month
 
-//TODO: move this to data module as soon as module onBoarding is ready
 val january = Month(name = "Janeiro", number = 1)
 val february = Month(name = "Fevereiro", number = 2)
 val march = Month(name = "Março", number = 3)

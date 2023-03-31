@@ -6,8 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import me.brisson.recipes.data.local.recipeTest
-import me.brisson.recipes.domain.repository.RecipeRepository
+import me.brisson.domain.repository.RecipeRepository
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +18,6 @@ class RecipeViewModel @Inject constructor(
     val uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
 
     init {
-//        insertRecipeTest()
         getAllRecipes()
     }
 
@@ -27,13 +25,7 @@ class RecipeViewModel @Inject constructor(
         _uiState.update { it.copy(selectedTab = tab) }
     }
 
-    //todo: remover essas duas funções quando tiver a relação de fruta-receita
-    private fun insertRecipeTest() {
-        viewModelScope.launch(Dispatchers.IO) {
-            recipeRepository.insertRecipe(recipeTest)
-        }
-    }
-
+    //todo: change to get by id
     private fun getAllRecipes() {
         viewModelScope.launch(Dispatchers.IO) {
             recipeRepository.getAllRecipes().catch {throwable ->

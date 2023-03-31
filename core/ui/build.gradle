@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core:domain')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
