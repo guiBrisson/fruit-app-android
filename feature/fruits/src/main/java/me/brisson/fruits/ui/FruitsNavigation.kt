@@ -10,7 +10,7 @@ import me.brisson.fruits.ui.presentation.month.MonthScreen
 import me.brisson.fruits.ui.presentation.nutrient.NutrientScreen
 import me.brisson.nutrients.NutrientsNavigationRoutes
 import me.brisson.nutrients.nutrientsNavigation
-import me.brisson.recipes.RecipeNavigationRoutes
+import me.brisson.recipes.RecipeNavigationScreen
 import me.brisson.recipes.recipeNavigation
 
 object FruitsNavigationScreens {
@@ -103,8 +103,8 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
                     navController.navigate(route)
                 },
                 onRecipe = { recipeId ->
-                    navController.navigate(RecipeNavigationRoutes.RECIPE_ROUTE)
-
+                    val route = "${RecipeNavigationScreen.RECIPE_SCREEN}/$recipeId"
+                    navController.navigate(route)
                 },
                 onBack = { navController.navigateUp() }
             )

@@ -8,9 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -108,10 +106,14 @@ internal fun RecipeScreen(
 @Composable
 fun PreviewRecipeScreen(@PreviewParameter(RecipePreviewProvider::class) recipe: Recipe) {
     FruitAppTheme {
+        var selectedTab by remember {
+            mutableStateOf<RecipeTab>(RecipeTab.Ingredient())
+        }
+
         RecipeScreen(
             recipe = recipe,
-            selectedTab = RecipeTab.Ingredient(),
-            onTab = { },
+            selectedTab = selectedTab,
+            onTab = { selectedTab = it },
             onBack = { }
         )
     }

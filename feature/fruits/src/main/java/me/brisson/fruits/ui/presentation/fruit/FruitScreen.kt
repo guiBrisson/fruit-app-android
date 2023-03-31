@@ -116,7 +116,7 @@ internal fun FruitScreen(
 
         Text(
             modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 12.dp)
-                .clickable { onRecipe(-1) }, // todo: fazer a navegação direito
+                .clickable { onRecipe(fruit.id) },
             text = "Receitas",
             style = MaterialTheme.typography.h3
         )
