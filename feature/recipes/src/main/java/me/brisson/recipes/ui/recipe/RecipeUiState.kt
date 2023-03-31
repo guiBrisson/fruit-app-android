@@ -3,9 +3,12 @@ package me.brisson.recipes.ui.recipe
 import me.brisson.domain.model.Recipe
 
 data class RecipeUiState(
+    val missingRecipeId: Boolean = false,
+
     val recipe: Recipe? = null,
     val loading: Boolean = true,
     val recipeError: Throwable? = null,
+
     val selectedTab: RecipeTab = RecipeTab.Ingredient()
 )
 
