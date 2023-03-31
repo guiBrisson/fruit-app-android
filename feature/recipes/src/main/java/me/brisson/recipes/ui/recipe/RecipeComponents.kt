@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import me.brisson.recipes.R
-import me.brisson.recipes.domain.model.Recipe
+import me.brisson.domain.model.Recipe
 import me.brisson.recipes.ui.preview_provider.RecipePreviewProvider
 import me.brisson.ui.theme.FruitAppTheme
 

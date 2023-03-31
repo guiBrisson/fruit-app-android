@@ -17,13 +17,7 @@ data class FruitWithMonths(
     val monthEntity: List<MonthEntity>
 ) {
     fun toFruit(): Fruit {
-        return Fruit(
-            id = fruitEntity.id,
-            name = fruitEntity.name,
-            imageUrl = fruitEntity.imageUrl,
-            summary = fruitEntity.summary,
-            isFavorite = fruitEntity.isFavorite,
-            paragraphs = fruitEntity.paragraphs,
-            months = monthEntity.map { it.toMonth() })
+        val fruit = fruitEntity.toFruit()
+        return fruit.copy(months = monthEntity.map { it.toMonth() })
     }
 }

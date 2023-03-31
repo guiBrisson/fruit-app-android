@@ -17,7 +17,7 @@ fun NavGraphBuilder.nutrientsNavigation(navController: NavController) {
         startDestination = NutrientsNavigationRoutes.NUTRIENTS_DETAIL_ROUTE,
         route = NutrientsNavigationRoutes.NUTRIENTS_ROUTE
     ) {
-        composable("detail") {
+        composable(NutrientsNavigationRoutes.NUTRIENTS_DETAIL_ROUTE) {
             NutrientsTheme {
                 NutrientsScreen(
                     onBack = { navController.navigateUp() },
