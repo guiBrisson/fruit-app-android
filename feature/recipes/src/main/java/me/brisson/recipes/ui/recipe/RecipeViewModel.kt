@@ -19,10 +19,13 @@ class RecipeViewModel @Inject constructor(
     val uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
 
     init {
-        insertRecipeTest()
+//        insertRecipeTest()
         getAllRecipes()
     }
 
+    fun changeTab(tab: RecipeTab) {
+        _uiState.update { it.copy(selectedTab = tab) }
+    }
 
     //todo: remover essas duas funções quando tiver a relação de fruta-receita
     private fun insertRecipeTest() {

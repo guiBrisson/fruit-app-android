@@ -43,10 +43,13 @@ dependencies {
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime
+    implementation Dependencies.androidxMaterial
+
+    // Compose
     implementation Dependencies.androidxActivityCompose
     implementation Dependencies.composeUi
     implementation Dependencies.composeUiPreviewTool
-    implementation Dependencies.androidxMaterial
+    implementation Dependencies.composeIconsExtended
 
     //Hilt
     implementation Dependencies.daggerHilt
