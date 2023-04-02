@@ -10,7 +10,7 @@ data class IngredientEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ingredientId")
     val id: Long = 0,
     val name: String,
-    val amount: String,
+    val amount: String?,
     val unitMeasurement: String?,
     val observations: List<String>? = null,
     val recipeId: Long

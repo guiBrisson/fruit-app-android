@@ -7,7 +7,8 @@ data class Recipe(
     val portions: String,
     val calories: Int,
     val preparationTime: Int,
-    val waitingTime: Int?,
+    val waitingTime: Int? = null,
     val ingredients: List<Ingredient>,
-    val instructions: List<String>
+    val instructions: List<String>,
+    val observations: List<String>? = null,
 )
