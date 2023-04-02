@@ -22,6 +22,7 @@ val months = listOf(
 
 
 val avocado = Fruit(
+    id = 1,
     name = "Abacate",
     imageUrl = "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1075&q=80",
     summary = "Fruta com alto teor de gordura saudável, fonte de vitamina E e ácido oleico. Pode ser consumida in natura ou em preparações.",
@@ -34,6 +35,7 @@ val avocado = Fruit(
 )
 
 val pineapple = Fruit(
+    id = 2,
     name = "Abacaxi",
     imageUrl = "https://images.unsplash.com/photo-1589820296156-2454bb8a6ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     summary = "Fruta tropical doce e suculenta, rica em vitamina C e bromelina, uma enzima que ajuda na digestão.",
@@ -46,6 +48,7 @@ val pineapple = Fruit(
 )
 
 val banana = Fruit(
+    id = 3,
     name = "Banana",
     imageUrl = "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
     summary = "Fruta doce e energética, rica em potássio e carboidratos. Pode ser consumida in natura ou em preparações.",
@@ -59,6 +62,7 @@ val banana = Fruit(
 )
 
 val coconut = Fruit(
+    id = 3,
     name = "Coco",
     imageUrl = "https://images.unsplash.com/photo-1560769680-ba2f3767c785?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
     summary = "O coco é uma fruta tropical muito apreciada por sua água doce e pela polpa branca e carnuda. É uma fruta versátil, que pode ser consumida fresca, seca, ralada ou em forma de leite.",
@@ -72,6 +76,7 @@ val coconut = Fruit(
 )
 
 val orange = Fruit(
+    id = 4,
     name = "Laranja",
     imageUrl = "https://images.unsplash.com/photo-1592187270271-9a4b84faa228?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     summary = "Uma fruta cítrica popular e comum, com casca laranja brilhante e polpa suculenta e doce ou azeda. É uma excelente fonte de vitamina C e também contém folato e potássio.",
@@ -86,6 +91,7 @@ val orange = Fruit(
 )
 
 val lemon = Fruit(
+    id = 4,
     name = "Limão",
     imageUrl = "https://images.unsplash.com/photo-1582287104445-6754664dbdb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     summary = "Outra fruta cítrica comum, com casca amarela brilhante e polpa ácida e suculenta. É rica em vitamina C, flavonóides e outros antioxidantes.",
@@ -100,6 +106,7 @@ val lemon = Fruit(
 )
 
 val papaya = Fruit(
+    id = 5,
     name = "Mamão",
     imageUrl = "https://images.unsplash.com/photo-1517282009859-f000ec3b26fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     summary = "Uma fruta tropical com casca fina e lisa e polpa macia e doce. É rica em vitamina C, carotenoides e enzimas digestivas.",
@@ -113,6 +120,7 @@ val papaya = Fruit(
 )
 
 val mango = Fruit(
+    id = 6,
     name = "Manga",
     imageUrl = "https://images.unsplash.com/photo-1604256913753-eef2d1d8ca21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
     summary = "Uma fruta tropical doce e suculenta, com casca fina e lisa e polpa macia e fibrosa. É uma excelente fonte de vitamina C e carotenoides.",
@@ -125,6 +133,7 @@ val mango = Fruit(
 )
 
 val apple = Fruit(
+    id = 6,
     name = "Maçã",
     imageUrl = "https://images.unsplash.com/photo-1579613832125-5d34a13ffe2a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     summary = "Uma fruta redonda e crocante com casca fina e variando de verde a vermelho, com polpa branca e doce ou levemente ácida. É uma boa fonte de fibra, vitamina C e antioxidantes.",
@@ -137,6 +146,7 @@ val apple = Fruit(
 )
 
 val watermelon = Fruit(
+    id = 7,
     name = "Melancia",
     imageUrl = "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     summary = "Uma fruta grande e redonda com casca verde grossa e polpa suculenta e doce. É uma boa fonte de vitamina C, potássio e licopeno.",
@@ -149,6 +159,7 @@ val watermelon = Fruit(
 )
 
 val grape = Fruit(
+    id = 8,
     name = "Uva",
     imageUrl = "https://images.unsplash.com/photo-1637715924886-cbe4485f90b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
     summary = "É rica em antioxidantes, vitaminas e minerais, e é amplamente consumida in natura, em sucos, geleias e vinhos. A uva é conhecida por seus benefícios para a saúde, incluindo a redução do risco de doenças cardiovasculares e do câncer.",

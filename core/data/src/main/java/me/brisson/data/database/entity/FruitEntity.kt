@@ -7,7 +7,7 @@ import me.brisson.domain.model.Fruit
 
 @Entity(tableName = "fruit")
 data class FruitEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "fruitId")
+    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "fruitId")
     val id: Long = 0,
     val name: String,
     val imageUrl: String?,

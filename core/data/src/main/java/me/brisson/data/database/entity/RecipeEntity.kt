@@ -14,7 +14,8 @@ data class RecipeEntity(
     val calories: Int,
     val preparationTime: Int,
     val waitingTime: Int?,
-    val instructions: List<String>
+    val instructions: List<String>,
+    val observations: List<String>? = null,
 ) {
     fun toRecipe(): Recipe {
         return Recipe(
@@ -26,6 +27,7 @@ data class RecipeEntity(
             waitingTime = waitingTime,
             instructions = instructions,
             ingredients = emptyList(),
+            observations = observations,
         )
     }
 }
@@ -39,5 +41,6 @@ fun Recipe.toRecipeEntity() : RecipeEntity {
         preparationTime = preparationTime,
         waitingTime = waitingTime,
         instructions = instructions,
+        observations = observations,
     )
 }
