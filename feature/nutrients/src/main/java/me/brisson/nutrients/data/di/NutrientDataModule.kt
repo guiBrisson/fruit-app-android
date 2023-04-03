@@ -33,7 +33,7 @@ class NutrientDataModule {
     fun providesNutrientDatabase(@ApplicationContext context: Context) : NutrientDatabase {
         return Room.databaseBuilder(
             context,
-            NutrientDatabase::class.java,  "Nutrient"
+            NutrientDatabase::class.java,  "nutrient"
         ).build()
     }
 

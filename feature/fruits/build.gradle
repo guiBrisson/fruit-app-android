@@ -40,8 +40,9 @@ android {
 
 dependencies {
     implementation project(path: ':core:ui')
-    implementation project(path: ':feature:nutrients')
     implementation project(path: ':core:domain')
+    implementation project(path: ':feature:nutrients')
+    implementation project(path: ':feature:recipes')
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxLifecycleRuntime

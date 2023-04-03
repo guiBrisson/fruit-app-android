@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'me.brisson.recipes'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.2.0'
+    }
+}
+
+dependencies {
+    implementation project(path: ':core:ui')
+//    implementation project(path: ':core:data')
+    implementation project(path: ':core:domain')
+
+    implementation Dependencies.androidxCoreKtx
+    implementation Dependencies.androidxLifecycleRuntime
+    implementation Dependencies.androidxMaterial
+
+    // Compose
+    implementation Dependencies.androidxActivityCompose
+    implementation Dependencies.composeUi
+    implementation Dependencies.composeUiPreviewTool
+    implementation Dependencies.composeIconsExtended
+
+    //Hilt
+    implementation Dependencies.daggerHilt
+    kapt Dependencies.hiltCompiler
+    implementation Dependencies.hiltNavigation
+
+    //Navigation
+    implementation Dependencies.navigationCompose
+
+    //Room
+    implementation Dependencies.roomKtx
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.androidxJunit
+    androidTestImplementation Dependencies.androidxEspresso
+    androidTestImplementation Dependencies.composeJunit
+    debugImplementation Dependencies.composeUiTolling
+    debugImplementation Dependencies.composeUiTest
+
+}

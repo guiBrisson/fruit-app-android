@@ -2,14 +2,16 @@ package me.brisson.fruits.ui
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import me.brisson.fruits.ui.crop_season.CropSeasonScreen
-import me.brisson.fruits.ui.fruit.FruitScreen
-import me.brisson.fruits.ui.fruit_detail.FruitDetailScreen
-import me.brisson.fruits.ui.home.HomeScreen
-import me.brisson.fruits.ui.month.MonthScreen
-import me.brisson.fruits.ui.nutrient.NutrientScreen
+import me.brisson.fruits.ui.presentation.crop_season.CropSeasonScreen
+import me.brisson.fruits.ui.presentation.fruit.FruitScreen
+import me.brisson.fruits.ui.presentation.fruit_detail.FruitDetailScreen
+import me.brisson.fruits.ui.presentation.home.HomeScreen
+import me.brisson.fruits.ui.presentation.month.MonthScreen
+import me.brisson.fruits.ui.presentation.nutrient.NutrientScreen
 import me.brisson.nutrients.NutrientsNavigationRoutes
 import me.brisson.nutrients.nutrientsNavigation
+import me.brisson.recipes.RecipeNavigationScreen
+import me.brisson.recipes.recipeNavigation
 
 object FruitsNavigationScreens {
     const val HOME_SCREEN = "home"
@@ -44,6 +46,7 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
         route = FruitsNavigationRoutes.FRUITS_ROUTE
     ) {
         nutrientsNavigation(navController)
+        recipeNavigation(navController)
 
         composable(route = FruitsNavigationRoutes.HOME_ROUTE) {
             HomeScreen(
@@ -97,6 +100,10 @@ fun NavGraphBuilder.fruitsNavigation(navController: NavController) {
             FruitScreen(
                 onSeeMore = { fruitId ->
                     val route = "${FruitsNavigationScreens.FRUIT_DETAIL_SCREEN}/$fruitId"
+                    navController.navigate(route)
+                },
+                onRecipe = { recipeId ->
+                    val route = "${RecipeNavigationScreen.RECIPE_SCREEN}/$recipeId"
                     navController.navigate(route)
                 },
                 onBack = { navController.navigateUp() }
