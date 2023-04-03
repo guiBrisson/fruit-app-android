@@ -2,6 +2,8 @@ package me.brisson.fruits.ui.presentation.fruit
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -11,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,8 +22,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import me.brisson.domain.*
 import me.brisson.domain.model.Fruit
+import me.brisson.domain.model.Recipe
 import me.brisson.fruits.ui.preview_provider.FruitPreviewProvider
+import me.brisson.recipes.ui.components.RecipeItem
 import me.brisson.ui.R
 import me.brisson.ui.components.AppButton
 import me.brisson.ui.theme.FruitAppTheme
@@ -39,6 +45,7 @@ fun FruitScreen(
         FruitScreen(
             modifier = modifier,
             fruit = fruit,
+            recipes = uiState.recipes,
             onFavorite = viewModel::favoriteFruit,
             onSeeMore = onSeeMore,
             onRecipe = onRecipe,
@@ -52,6 +59,7 @@ fun FruitScreen(
 internal fun FruitScreen(
     modifier: Modifier = Modifier,
     fruit: Fruit,
+    recipes: List<Recipe>,
     onFavorite: (favorite: Boolean) -> Unit,
     onSeeMore: (fruitId: Long) -> Unit,
     onRecipe: (recipeId: Long) -> Unit,
@@ -115,11 +123,34 @@ internal fun FruitScreen(
         )
 
         Text(
-            modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 12.dp)
+            modifier = Modifier
+                .padding(start = 20.dp, top = 16.dp, bottom = 12.dp)
                 .clickable { onRecipe(fruit.id) },
             text = "Receitas",
             style = MaterialTheme.typography.h3
         )
+
+        LazyRow {
+            itemsIndexed(recipes) { index, recipe ->
+                val padding = when (index) {
+                    0 -> PaddingValues(start = 20.dp, end = 8.dp)
+                    recipes.lastIndex -> PaddingValues(end = 20.dp, start = 8.dp)
+                    else -> PaddingValues(horizontal = 8.dp)
+                }
+                val configuration = LocalConfiguration.current
+                val screenWidth = configuration.screenWidthDp.dp
+
+                RecipeItem(
+                    modifier = Modifier
+                        .height(100.dp)
+                        .padding(padding)
+                        .width(screenWidth / 2.4f)
+                        .defaultMinSize(150.dp)
+                    ,
+                    recipe = recipe
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -146,9 +177,13 @@ internal fun FruitScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewFruitScreen(@PreviewParameter(FruitPreviewProvider::class) fruits: List<Fruit>) {
+    val recipes = listOf(
+        guacamole, pudimDeAbacate, saladaDeAbacateEQuinoa, saladaDeQuinoaComMangaEAbacate
+    )
     FruitAppTheme {
         FruitScreen(
             fruit = fruits.first(),
+            recipes = recipes,
             onSeeMore = { },
             onFavorite = { },
             onRecipe = { },
