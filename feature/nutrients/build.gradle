@@ -59,6 +59,7 @@ dependencies {
 
     //Room
     implementation Dependencies.roomKtx
+    debugImplementation Dependencies.composeUiTest
     implementation Dependencies.roomRuntime
     kapt Dependencies.roomCompiler
 
@@ -67,5 +68,4 @@ dependencies {
     androidTestImplementation Dependencies.androidxEspresso
     androidTestImplementation Dependencies.composeJunit
     debugImplementation Dependencies.composeUiTolling
-    debugImplementation Dependencies.composeUiTest
 }

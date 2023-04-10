@@ -5,7 +5,9 @@ import me.brisson.domain.model.Recipe
 
 interface RecipeRepository {
 
-    suspend fun insertRecipe(recipe: Recipe, fruitId: Long)
+    suspend fun insertRecipe(recipe: Recipe)
+
+    suspend fun insertRecipeFruitRelation(fruitId: Long, recipeId: Long)
 
     fun getAllRecipesFromFruit(fruitId: Long): Flow<List<Recipe>>
 

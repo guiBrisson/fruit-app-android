@@ -4,6 +4,7 @@ import me.brisson.domain.model.Ingredient
 import me.brisson.domain.model.Recipe
 
 val arrozDoceDeCoco = Recipe(
+    id = 1,
     name = "Arroz doce de coco",
     portions = "6",
     calories = 380,
@@ -56,6 +57,7 @@ val arrozDoceDeCoco = Recipe(
 )
 
 val boloDeCoco = Recipe(
+    id = 2,
     name = "Bolo de coco",
     portions = "10-12 fatias",
     calories = 280,
@@ -108,6 +110,7 @@ val boloDeCoco = Recipe(
 )
 
 val frangoComAbacaxi = Recipe(
+    id = 3,
     name = "Frango com Abacaxi",
     portions = "4",
     calories = 300,
@@ -175,6 +178,7 @@ val frangoComAbacaxi = Recipe(
 )
 
 val guacamole = Recipe(
+    id = 4,
     name = "Guacamole",
     portions = "4",
     calories = 170,
@@ -218,6 +222,7 @@ val guacamole = Recipe(
 )
 
 val limonadaCremosa = Recipe(
+    id = 5,
     name = "Limonada cremosa",
     portions = "4",
     calories = 140,
@@ -237,6 +242,7 @@ val limonadaCremosa = Recipe(
 )
 
 val panquecaDeMacaCaramelizada = Recipe(
+    id = 6,
     name = "Panquecas de Maçã Caramelizada",
     portions = "4",
     calories = 260,
@@ -262,6 +268,7 @@ val panquecaDeMacaCaramelizada = Recipe(
 )
 
 val pudimDeAbacate = Recipe(
+    id = 7,
     name = "Pudim de abacate",
     portions = "6",
     calories = 350,
@@ -284,6 +291,7 @@ val pudimDeAbacate = Recipe(
 )
 
 val paoDeBanana = Recipe(
+    id = 8,
     name = "Pão de banana",
     portions = "10-12 fatias",
     calories = 220,
@@ -309,6 +317,7 @@ val paoDeBanana = Recipe(
 )
 
 val saladaDeAbacateEQuinoa = Recipe(
+    id = 9,
     name = "Salada de Abacate e Quinoa",
     portions = "4",
     calories = 290,
@@ -336,6 +345,7 @@ val saladaDeAbacateEQuinoa = Recipe(
 )
 
 val saladaDeAbacaxiCamaraoEQuinoa = Recipe(
+    id = 10,
     name = "Salada de Abacaxi, Camarão e Quinoa",
     portions = "4",
     calories = 300,
@@ -362,6 +372,7 @@ val saladaDeAbacaxiCamaraoEQuinoa = Recipe(
 )
 
 val saladaDeFrutasComLaranjaEMel = Recipe(
+    id = 11,
     name = "Salada de Frutas com Laranja e Mel",
     portions = "4",
     calories = 120,
@@ -384,6 +395,7 @@ val saladaDeFrutasComLaranjaEMel = Recipe(
 )
 
 val saladaDeFrutasComMamaoEHortela = Recipe(
+    id = 12,
     name = "Salada de frutas com mamão e hortelã",
     portions = "6",
     calories = 130,
@@ -406,6 +418,7 @@ val saladaDeFrutasComMamaoEHortela = Recipe(
 )
 
 val saladaDeMelanciaComFetaEManjericao = Recipe(
+    id = 13,
     name = "Salada de Melancia com Feta e Manjericão",
     portions = "4",
     calories = 170,
@@ -427,6 +440,7 @@ val saladaDeMelanciaComFetaEManjericao = Recipe(
 )
 
 val saladaDeQuinoaComMangaEAbacate = Recipe(
+    id = 14,
     name = "Salada de Quinoa com Manga e Abacate",
     portions = "4",
     calories = 310,
@@ -455,6 +469,7 @@ val saladaDeQuinoaComMangaEAbacate = Recipe(
 )
 
 val saladaDeUvaComQueijoFetaENoses = Recipe(
+    id = 15,
     name = "Salada de uva com queijo feta e nozes",
     portions = "4",
     calories = 220,
@@ -476,7 +491,8 @@ val saladaDeUvaComQueijoFetaENoses = Recipe(
     )
 )
 
-val salmaoGrelhadoComMolhoDeTomate = Recipe(
+val salmaoGrelhadoComMolhoDeLaranja = Recipe(
+    id = 16,
     name = "Salmão Grelhado com Molho de Laranja",
     portions = "4",
     calories = 350,
@@ -499,6 +515,7 @@ val salmaoGrelhadoComMolhoDeTomate = Recipe(
 )
 
 val smoothieDeAbacaxiComHortela = Recipe(
+    id = 17,
     name = "Smoothie de Abacaxi e Hortelã",
     portions = "2",
     calories = 200,
@@ -519,6 +536,7 @@ val smoothieDeAbacaxiComHortela = Recipe(
 )
 
 val smoothieDeMangaEIogurte = Recipe(
+    id = 18,
     name = "Smoothie de Manga e Iogurte",
     portions = "2",
     calories = 180,
@@ -539,6 +557,7 @@ val smoothieDeMangaEIogurte = Recipe(
 )
 
 val smoothieDeMelanciaComHortela = Recipe(
+    id = 19,
     name = "Smoothie de Melancia com Hortelã",
     portions = "2",
     calories = 70,
@@ -558,6 +577,7 @@ val smoothieDeMelanciaComHortela = Recipe(
 )
 
 val smoothieDeUvaEBanana = Recipe(
+    id = 20,
     name = "Smoothie de uva e banana",
     portions = "2",
     calories = 130,
@@ -578,6 +598,7 @@ val smoothieDeUvaEBanana = Recipe(
 )
 
 val sorveteDeBanana = Recipe(
+    id = 21,
     name = "Sorvete de banana",
     portions = "4",
     calories = 120,
@@ -597,6 +618,7 @@ val sorveteDeBanana = Recipe(
 )
 
 val vitaminaDeMamaoEBanana = Recipe(
+    id = 22,
     name = "Vitamina de mamão e banana",
     portions = "2",
     calories = 150,
@@ -617,6 +639,7 @@ val vitaminaDeMamaoEBanana = Recipe(
 )
 
 val boloDeMaca = Recipe(
+    id = 23,
     name = "Bolo de maça",
     portions = "12 fatias",
     calories = 300,
@@ -644,4 +667,59 @@ val boloDeMaca = Recipe(
         "Deixe o bolo esfriar por alguns minutos antes de desenformar. Polvilhe açúcar de confeiteiro por cima, se desejar.",
         "Sirva em fatias."
     )
+)
+
+val recipes = listOf(
+    boloDeMaca,
+    vitaminaDeMamaoEBanana,
+    sorveteDeBanana,
+    smoothieDeUvaEBanana,
+    smoothieDeMelanciaComHortela,
+    smoothieDeMangaEIogurte,
+    smoothieDeAbacaxiComHortela,
+    salmaoGrelhadoComMolhoDeLaranja,
+    saladaDeUvaComQueijoFetaENoses,
+    saladaDeQuinoaComMangaEAbacate,
+    saladaDeMelanciaComFetaEManjericao,
+    saladaDeFrutasComMamaoEHortela,
+    saladaDeFrutasComLaranjaEMel,
+    saladaDeAbacaxiCamaraoEQuinoa,
+    saladaDeAbacateEQuinoa,
+    paoDeBanana,
+    pudimDeAbacate,
+    panquecaDeMacaCaramelizada,
+    limonadaCremosa,
+    guacamole,
+    frangoComAbacaxi,
+    boloDeCoco,
+    arrozDoceDeCoco
+)
+
+val relationFruitRecipe = listOf(
+    Pair(boloDeMaca.id, apple.id),
+    Pair(vitaminaDeMamaoEBanana.id, banana.id),
+    Pair(vitaminaDeMamaoEBanana.id, papaya.id),
+    Pair(sorveteDeBanana.id, banana.id),
+    Pair(smoothieDeUvaEBanana.id, grape.id),
+    Pair(smoothieDeUvaEBanana.id, banana.id),
+    Pair(smoothieDeMelanciaComHortela.id, watermelon.id),
+    Pair(smoothieDeMangaEIogurte.id, mango.id),
+    Pair(smoothieDeAbacaxiComHortela.id, pineapple.id),
+    Pair(salmaoGrelhadoComMolhoDeLaranja.id, orange.id),
+    Pair(saladaDeUvaComQueijoFetaENoses.id, grape.id),
+    Pair(saladaDeQuinoaComMangaEAbacate.id, mango.id),
+    Pair(saladaDeQuinoaComMangaEAbacate.id, avocado.id),
+    Pair(saladaDeMelanciaComFetaEManjericao.id, watermelon.id),
+    Pair(saladaDeFrutasComMamaoEHortela.id, papaya.id),
+    Pair(saladaDeFrutasComLaranjaEMel.id, orange.id),
+    Pair(saladaDeAbacaxiCamaraoEQuinoa.id, pineapple.id),
+    Pair(saladaDeAbacateEQuinoa.id, avocado.id),
+    Pair(paoDeBanana.id, banana.id),
+    Pair(pudimDeAbacate.id, avocado.id),
+    Pair(panquecaDeMacaCaramelizada.id, apple.id),
+    Pair(limonadaCremosa.id, lemon.id),
+    Pair(guacamole.id, avocado.id),
+    Pair(frangoComAbacaxi.id, pineapple.id),
+    Pair(boloDeCoco.id, coconut.id),
+    Pair(arrozDoceDeCoco.id, coconut.id),
 )

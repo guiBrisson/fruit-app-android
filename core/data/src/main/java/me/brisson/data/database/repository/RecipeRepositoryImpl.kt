@@ -16,14 +16,16 @@ class RecipeRepositoryImpl @Inject constructor(
     private val fruitRecipeDao: FruitRecipeDao,
 ) : RecipeRepository {
 
-    override suspend fun insertRecipe(recipe: Recipe, fruitId: Long) {
+    override suspend fun insertRecipe(recipe: Recipe) {
         // Inserting recipe on db and receiving it's id
         val recipeId = recipeDao.insertRecipe(recipe.toRecipeEntity())
 
         // Inserting all the ingredients to ingredient db with recipe id
         val ingredients = recipe.ingredients.map { it.toIngredientEntity(recipeId) }.toTypedArray()
         recipeDao.insertIngredient(*ingredients)
+    }
 
+    override suspend fun insertRecipeFruitRelation(fruitId: Long, recipeId: Long) {
         // Creating relation between fruit and recipe
         fruitRecipeDao.insertFruitRecipeCrossRef(FruitRecipeCrossRef(fruitId, recipeId))
     }

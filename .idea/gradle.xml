@@ -22,8 +22,6 @@
             <option value="$PROJECT_DIR$/feature/nutrients" />
             <option value="$PROJECT_DIR$/feature/onboard" />
             <option value="$PROJECT_DIR$/feature/recipes" />
-            <option value="$PROJECT_DIR$/feature/onboarding" />
-            <option value="$PROJECT_DIR$/feature/onboard" />
           </set>
         </option>
       </GradleProjectSettings>

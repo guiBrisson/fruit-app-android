@@ -7,7 +7,7 @@ import me.brisson.domain.model.Recipe
 
 @Entity(tableName = "Recipe")
 data class RecipeEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "recipeId")
+    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "recipeId")
     val id: Long = 0,
     val name: String,
     val portions: String,
